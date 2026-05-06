@@ -44,9 +44,13 @@
 
     .card-header {
       padding: 32px 32px 26px;
-      background: linear-gradient(135deg,#5b8dee 0%,#9f7aea 28%,#f472b6 58%,#f87171 80%,#4a3f5c 100%);
-      position: relative;
-      overflow: hidden;
+      background: linear-gradient(135deg,
+        #5b8dee 0%,
+        #9f7aea 28%,
+        #f472b6 58%,
+        #f87171 80%,
+        #4a3f5c 100%
+      );
     }
 
     .card-header h1 {
@@ -57,28 +61,31 @@
       margin-bottom: 7px;
     }
 
-    .card-header p { font-size: 12.5px; color: rgba(255,255,255,0.87); }
+    .card-header p {
+      font-size: 12.5px;
+      color: rgba(255,255,255,0.87);
+    }
 
     .card-body { padding: 28px 32px 32px; }
 
     .step { display: none; }
     .step.active { display: block; }
 
-    .section-label {
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--purple);
-      margin-bottom: 20px;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 8px;
-    }
-
     .field { margin-bottom: 20px; }
 
-    .field .q { font-size: 13.5px; font-weight: 600; margin-bottom: 4px; display:block; }
-    .hint { font-size: 11.5px; color: var(--muted); margin-bottom: 9px; display:block; }
+    .q {
+      display: block;
+      font-size: 13.5px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .hint {
+      font-size: 11.5px;
+      color: var(--muted);
+      margin-bottom: 9px;
+      display: block;
+    }
 
     input, select, textarea {
       width: 100%;
@@ -86,10 +93,11 @@
       border-radius: 10px;
       border: 1.5px solid var(--border);
       font-size: 13px;
+      font-family: 'DM Sans', sans-serif;
       outline: none;
     }
 
-    .pill-group { display:flex; flex-wrap:wrap; gap:7px; }
+    .pill-group { display: flex; flex-wrap: wrap; gap: 7px; }
 
     .pill {
       padding: 8px 14px;
@@ -97,36 +105,38 @@
       border: 1.5px solid var(--border);
       font-size: 12.5px;
       cursor: pointer;
-      background:white;
+      background: white;
     }
 
-    .pill input { display:none; }
+    .pill input { display: none; }
 
-    .pill:has(input:checked) {
-      background: var(--blue);
-      color: white;
-      border-color: var(--blue);
+    .error-msg {
+      font-size: 11px;
+      color: var(--red);
+      display: none;
     }
 
-    .error-msg { color: var(--red); font-size: 11px; display:none; margin-top:5px; }
-
-    .field.has-error .error-msg { display:block; }
-
-    .btn-row { display:flex; gap:10px; margin-top:26px; }
+    .field.has-error .error-msg { display: block; }
 
     button {
       font-family: 'DM Sans';
       font-weight: 600;
-      border:none;
-      border-radius:12px;
-      padding:12px 20px;
-      cursor:pointer;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      padding: 12px 20px;
     }
 
-    .btn-primary { flex:1; background: linear-gradient(135deg,var(--blue),var(--purple)); color:white; }
-    .btn-back { background:transparent; border:1.5px dashed var(--border); }
+    .btn-primary {
+      flex: 1;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      color: white;
+    }
+
+    .btn-row { display: flex; gap: 10px; margin-top: 26px; }
   </style>
 </head>
+
 <body>
 
 <div class="card" id="mainCard">
@@ -140,16 +150,15 @@
 
     <!-- STEP 1 -->
     <div id="step1" class="step active">
-      <div class="section-label">1 — Basic Info</div>
 
       <div class="field" id="field-name">
-        <span class="q">Name <span style="color:var(--red)">*</span></span>
+        <span class="q">Name <span style="color:var(--red)">required</span></span>
         <input type="text" id="name">
         <div class="error-msg">Required</div>
       </div>
 
       <div class="field" id="field-location">
-        <span class="q">Location <span style="color:var(--red)">*</span></span>
+        <span class="q">Where are you currently based? <span style="color:var(--red)">required</span></span>
         <div class="pill-group">
           <label class="pill"><input type="radio" name="location" value="Iloilo City"> Iloilo City</label>
           <label class="pill"><input type="radio" name="location" value="Province"> Province</label>
@@ -159,7 +168,7 @@
       </div>
 
       <div class="field" id="field-status">
-        <span class="q">Status <span style="color:var(--red)">*</span></span>
+        <span class="q">Status <span style="color:var(--red)">required</span></span>
         <div class="pill-group">
           <label class="pill"><input type="radio" name="status" value="Student"> Student</label>
           <label class="pill"><input type="radio" name="status" value="Working"> Working</label>
@@ -168,37 +177,29 @@
         <div class="error-msg">Required</div>
       </div>
 
-      <div class="btn-row">
-        <button class="btn-primary" onclick="goToStep(2)">Next</button>
-      </div>
+      <button class="btn-primary" onclick="goToStep(2)">Next</button>
     </div>
 
     <!-- STEP 2 -->
     <div id="step2" class="step">
-      <div class="section-label">2 — Event Interest</div>
 
       <div class="field" id="field-events">
-        <span class="q">Events you would attend <span style="color:var(--red)">*</span></span>
+        <span class="q">Event interest <span style="color:var(--red)">required</span></span>
         <div class="pill-group">
           <label class="pill"><input type="checkbox" value="Cupsleeve"> Cupsleeve</label>
-          <label class="pill"><input type="checkbox" value="Viewing"> Viewing party</label>
-          <label class="pill"><input type="checkbox" value="Fan meet"> Fan meet</label>
+          <label class="pill"><input type="checkbox" value="Meetups"> Meetups</label>
         </div>
         <div class="error-msg">Required</div>
       </div>
 
-      <div class="btn-row">
-        <button class="btn-back" onclick="goToStep(1)">Back</button>
-        <button class="btn-primary" onclick="goToStep(3)">Next</button>
-      </div>
+      <button class="btn-primary" onclick="goToStep(3)">Next</button>
     </div>
 
     <!-- STEP 3 -->
     <div id="step3" class="step">
-      <div class="section-label">3 — Attendance Info</div>
 
       <div class="field" id="field-commute">
-        <span class="q">Commute ease <span style="color:var(--red)">*</span></span>
+        <span class="q">Commute ease <span style="color:var(--red)">required</span></span>
         <div class="pill-group">
           <label class="pill"><input type="radio" name="commute" value="Easy"> Easy</label>
           <label class="pill"><input type="radio" name="commute" value="Hard"> Hard</label>
@@ -206,80 +207,88 @@
         <div class="error-msg">Required</div>
       </div>
 
-      <div class="field" id="field-budget">
-        <span class="q">Budget <span style="color:var(--red)">*</span></span>
+      <div class="field" id="field-areas">
+        <span class="q">Easy areas <span style="color:var(--red)">required</span></span>
+        <input type="text" id="easyAreas">
+      </div>
+
+      <div class="field" id="field-helpers">
+        <span class="q">Helpers <span style="color:var(--red)">required</span></span>
         <div class="pill-group">
-          <label class="pill"><input type="radio" name="budget" value="<200"> <200</label>
-          <label class="pill"><input type="radio" name="budget" value=">200"> >200</label>
+          <label class="pill"><input type="checkbox" value="Guide"> Guide</label>
+        </div>
+        <div class="error-msg">Required</div>
+      </div>
+
+      <div class="field" id="field-budget">
+        <span class="q">Budget <span style="color:var(--red)">required</span></span>
+        <div class="pill-group">
+          <label class="pill"><input type="radio" name="budget" value="200"> 200</label>
         </div>
         <div class="error-msg">Required</div>
       </div>
 
       <div class="btn-row">
-        <button class="btn-back" onclick="goToStep(2)">Back</button>
+        <button onclick="goToStep(2)">Back</button>
         <button class="btn-primary" onclick="goToStep(4)">Next</button>
       </div>
     </div>
 
     <!-- STEP 4 -->
     <div id="step4" class="step">
-      <div class="section-label">4 — Optional</div>
 
-      <textarea placeholder="Anything else (optional)"></textarea>
-
-      <div class="btn-row">
-        <button class="btn-back" onclick="goToStep(3)">Back</button>
-        <button class="btn-primary" onclick="submitForm()">Submit</button>
+      <div class="field">
+        <span class="q">Motivation (optional)</span>
+        <textarea id="motivation"></textarea>
       </div>
+
+      <div class="field">
+        <span class="q">Notes (optional)</span>
+        <textarea id="notes"></textarea>
+      </div>
+
+      <button class="btn-primary" onclick="submitForm()">Submit</button>
     </div>
 
   </div>
 </div>
 
 <script>
-function getRadio(name){
+function radio(name){
   const el = document.querySelector(`input[name="${name}"]:checked`);
   return el ? el.value : '';
 }
 
-function validateStep(step){
-  let valid = true;
+function validate(step){
+  let ok = true;
+  const req = document.querySelectorAll(`#step${step} .field`);
 
-  function mark(id, ok){
-    const f = document.getElementById(id);
-    if(!ok){ f.classList.add('has-error'); valid=false; }
-    else f.classList.remove('has-error');
-  }
+  req.forEach(f => {
+    const inputs = f.querySelectorAll('input');
+    const hasValue =
+      [...inputs].some(i => (i.type === 'text' && i.value.trim()) || i.checked);
 
-  if(step===1){
-    mark('field-name', document.getElementById('name').value.trim());
-    mark('field-location', getRadio('location'));
-    mark('field-status', getRadio('status'));
-  }
+    if (!hasValue) {
+      f.classList.add('has-error');
+      ok = false;
+    } else {
+      f.classList.remove('has-error');
+    }
+  });
 
-  if(step===2){
-    const checked = document.querySelectorAll('#step2 input:checked').length;
-    mark('field-events', checked>0);
-  }
-
-  if(step===3){
-    mark('field-commute', getRadio('commute'));
-    mark('field-budget', getRadio('budget'));
-  }
-
-  return valid;
+  return ok;
 }
 
 function goToStep(n){
   const current = document.querySelector('.step.active').id.replace('step','');
-  if(n>current && !validateStep(current)) return;
+  if (n > current && !validate(current)) return;
 
-  document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
   document.getElementById('step'+n).classList.add('active');
 }
 
 function submitForm(){
-  alert('Submitted (placeholder)');
+  alert("Submitted");
 }
 </script>
 
