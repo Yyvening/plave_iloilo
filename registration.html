@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PLLIcnic 2026 🧺✨</title>
+    <title>PLLI Anniversary 2026 🧺✨</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Montserrat:wght@800&family=Poppins:wght@400;600&display=swap');
 
@@ -16,20 +16,32 @@
             overflow-x: hidden;
         }
 
-        /* Floating Background Elements */
-        .bg-element { position: absolute; opacity: 0.2; z-index: 1; pointer-events: none; }
-
         .card { 
             background: white; 
             padding: 40px; border-radius: 40px; 
             box-shadow: 0 20px 40px rgba(255, 182, 193, 0.4); 
-            width: 100%; max-width: 450px; text-align: center;
+            width: 100%; max-width: 480px; text-align: center;
             border: 8px solid #ffe3ec;
             position: relative; z-index: 10;
         }
 
         .logo-text { font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 42px; color: #ff85a2; margin-bottom: 0; }
-        .sub-text { font-size: 14px; color: #ffa4ba; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px; }
+        .sub-text { font-size: 14px; color: #ffa4ba; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
+
+        /* NEW: Event Info Section on Landing Page */
+        .event-info-box {
+            background: #fffafa;
+            border-radius: 20px;
+            padding: 15px;
+            margin-bottom: 25px;
+            border: 2px dashed #ffd1dc;
+            display: flex;
+            justify-content: space-around;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 13px;
+            color: #ff85a2;
+        }
+        .info-item b { display: block; color: #ffb3c1; font-size: 10px; text-transform: uppercase; }
 
         .input-group { text-align: left; margin-bottom: 15px; }
         label { font-family: 'Fredoka', sans-serif; color: #ff85a2; font-size: 14px; margin-left: 15px; }
@@ -48,10 +60,9 @@
             font-weight: 600; font-family: 'Fredoka', sans-serif; margin-top: 15px;
             transition: 0.3s; box-shadow: 0 5px 15px rgba(255, 133, 162, 0.3);
         }
-        .btn:hover { transform: scale(1.02); background: #ff7096; }
 
-        /* Ticket Rectangle Format */
-        #ticket-container { display: none; width: 800px; max-width: 95vw; z-index: 10; }
+        /* Ticket Layout */
+        #ticket-container { display: none; width: 800px; max-width: 95vw; z-index: 10; text-align: center; }
         
         .ticket {
             width: 100%; height: 380px;
@@ -61,7 +72,7 @@
             background: white;
             display: flex;
             box-shadow: 0 30px 60px rgba(0,0,0,0.2);
-            border: 1px solid rgba(0,0,0,0.05);
+            text-align: left;
         }
 
         .member-img {
@@ -102,29 +113,38 @@
         @media print {
             body { background: white; }
             #ticket-container { display: block; width: 800px; }
-            .btn, #form-container, .bg-element { display: none; }
+            .btn, #form-container { display: none; }
         }
     </style>
 </head>
 <body>
 
+    <!-- Landing Page -->
     <div id="form-container" class="card">
         <div class="logo-text">PLLIcnic 🧺</div>
         <div class="sub-text">1st Anniversary Celebration</div>
         
+        <!-- Details now visible here! -->
+        <div class="event-info-box">
+            <div class="info-item"><b>Where</b>Asterum Park</div>
+            <div class="info-item"><b>When</b>June 20, 2026</div>
+            <div class="info-item"><b>Time</b>18:00</div>
+        </div>
+
         <div class="input-group">
             <label>Full Name</label>
-            <input type="text" id="fullName" placeholder="e.g. Han Hanbin" required>
+            <input type="text" id="fullName" placeholder="Your real name for registration purposes" required>
         </div>
         
         <div class="input-group">
-            <label>Nickname (To appear on pass)</label>
-            <input type="text" id="nickName" placeholder="e.g. Binnie ♡" required>
+            <label>Nickname</label>
+            <input type="text" id="nickName" placeholder="Nickname for the invitation pass" required>
         </div>
 
         <button class="btn" onclick="pullGacha()">Check My Invitation 🎟️</button>
     </div>
 
+    <!-- Ticket Page -->
     <div id="ticket-container">
         <div id="ticket-body" class="ticket" style="--m-color: #212121;">
             <div id="member-photo" class="member-img"></div>
@@ -137,22 +157,10 @@
                 </div>
 
                 <div class="details-grid">
-                    <div>
-                        <div class="detail-item">Location</div>
-                        <div class="detail-value">Asterum Park</div>
-                    </div>
-                    <div>
-                        <div class="detail-item">Date</div>
-                        <div class="detail-value">June 12, 2026</div>
-                    </div>
-                    <div>
-                        <div class="detail-item">Time</div>
-                        <div class="detail-value">06:00 PM KST</div>
-                    </div>
-                    <div>
-                        <div class="detail-item">Pass ID</div>
-                        <div id="ticket-id" class="detail-value"></div>
-                    </div>
+                    <div><div class="detail-item">Location</div><div class="detail-value">Asterum Park</div></div>
+                    <div><div class="detail-item">Date</div><div class="detail-value">June 20, 2026</div></div>
+                    <div><div class="detail-item">Time</div><div class="detail-value">06:00 PM KST</div></div>
+                    <div><div class="detail-item">Pass ID</div><div id="ticket-id" class="detail-value"></div></div>
                 </div>
 
                 <div style="margin-top: auto;">
@@ -161,7 +169,7 @@
                 </div>
             </div>
         </div>
-        <button class="btn" onclick="window.print()" style="margin-top: 25px;">Download Pass (Print to PDF) ☁️</button>
+        <button class="btn" onclick="window.print()" style="margin-top: 25px;">Download Pass (Save as PDF) ☁️</button>
         <button class="btn" onclick="location.reload()" style="background: transparent; color: #ff85a2; border: 2px solid #ffe3ec; margin-top: 10px; font-size: 12px; padding: 10px;">Back to Entrance</button>
     </div>
 
@@ -182,11 +190,8 @@
 
             let result;
             const chance = Math.random();
-            if (chance < 0.10) {
-                result = gachaPool[5]; 
-            } else {
-                result = gachaPool[Math.floor(Math.random() * 5)]; 
-            }
+            if (chance < 0.10) { result = gachaPool[5]; } 
+            else { result = gachaPool[Math.floor(Math.random() * 5)]; }
 
             const ticket = document.getElementById('ticket-body');
             const photo = document.getElementById('member-photo');
@@ -198,14 +203,11 @@
             if (result.name === "PLAVE (Group)") {
                 ticket.classList.add('gold-glow');
                 tag.innerText = "✨ FULL GROUP ✨";
-                tag.style.background = "linear-gradient(45deg, #ffd700, #ff85a2)";
             } else {
                 ticket.classList.remove('gold-glow');
                 tag.innerText = "✦ " + result.name.toUpperCase();
-                tag.style.background = "rgba(255,255,255,0.2)";
             }
             
-            // Logic: Register Full Name but only show Nickname
             document.getElementById('display-name').innerText = nickName.toUpperCase();
             document.getElementById('ticket-id').innerText = 'PLLI-' + Math.floor(1000 + Math.random() * 9000);
 
