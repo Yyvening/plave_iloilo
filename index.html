@@ -3,7 +3,6 @@
 <head>
   <title>PLAVE Iloilo Survey</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
@@ -16,7 +15,7 @@
     }
 
     .card {
-      max-width: 650px;
+      max-width: 700px;
       margin: auto;
       background: white;
       padding: 24px;
@@ -24,25 +23,18 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     }
 
-    h1 {
-      font-size: 20px;
-      margin-bottom: 5px;
-    }
+    h1 { font-size: 20px; margin-bottom: 6px; }
 
-    .desc {
-      font-size: 12px;
-      color: #6b7280;
-      margin-bottom: 15px;
-    }
+    .desc { font-size: 12px; color: #6b7280; margin-bottom: 12px; }
 
     label {
       font-size: 13px;
       font-weight: 500;
-      margin-top: 15px;
+      margin-top: 14px;
       display: block;
     }
 
-    input, select {
+    input, select, textarea {
       width: 100%;
       padding: 10px;
       margin-top: 6px;
@@ -50,95 +42,32 @@
       border: 1px solid #e5e7eb;
     }
 
+    textarea { resize: vertical; }
+
+    .step { display: none; }
+    .active { display: block; }
+
     .row {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
       gap: 6px;
-      margin-top: 8px;
+      margin-top: 10px;
     }
 
     button {
       width: 100%;
       margin-top: 15px;
       padding: 12px;
-      border: none;
       border-radius: 12px;
+      border: none;
       cursor: pointer;
     }
 
-    .primary {
-      background: #6d7cff;
-      color: white;
-    }
-
+    .primary { background: #6d7cff; color: white; }
     .ghost {
       background: transparent;
       border: 1px dashed #6d7cff;
       color: #6d7cff;
-    }
-
-    .step {
-      display: none;
-    }
-
-    .active {
-      display: block;
-    }
-
-    /* Progress */
-    .progress {
-      margin: 10px 0 20px;
-    }
-
-    .progress-text {
-      font-size: 12px;
-      color: #6b7280;
-      margin-bottom: 6px;
-    }
-
-    .progress-bar {
-      width: 100%;
-      height: 6px;
-      background: #e5e7eb;
-      border-radius: 999px;
-      overflow: hidden;
-    }
-
-    .progress-fill {
-      height: 100%;
-      width: 33%;
-      background: #6d7cff;
-      transition: 0.3s ease;
-    }
-
-    /* Checkbox pills */
-    .checkbox-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 8px;
-    }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      border: 1px solid #e5e7eb;
-      font-size: 13px;
-      cursor: pointer;
-      background: white;
-    }
-
-    .pill input {
-      display: none;
-    }
-
-    .pill:has(input:checked) {
-      background: #6d7cff;
-      color: white;
-      border-color: #6d7cff;
     }
 
     #thankyou {
@@ -153,45 +82,30 @@
 
 <div class="card">
 
-  <h1>PLAVE Iloilo Survey 💙💜🩷❤️🖤</h1>
-  <div class="desc">Help us plan better fan events for PLLIs in Iloilo</div>
-
-  <!-- PROGRESS -->
-  <div class="progress">
-    <div class="progress-text" id="progressText">Step 1 of 3</div>
-    <div class="progress-bar">
-      <div class="progress-fill" id="progressFill"></div>
-    </div>
-  </div>
+  <h1>PLAVE Iloilo Survey 💙</h1>
+  <div class="desc">Help us plan meaningful fan events for PLLIs in Iloilo</div>
 
   <!-- STEP 1 -->
   <div id="step1" class="step active">
 
     <label>Name</label>
-    <input id="name" placeholder="Hamin Y." />
+    <input id="name" placeholder="First name + last initial (e.g. Hamin Y.)" />
 
     <label>Location</label>
+    <div class="desc">Helps us understand travel distance for Iloilo City events</div>
     <select id="location">
       <option>Iloilo City</option>
       <option>Iloilo Province</option>
       <option>Outside Iloilo (can travel)</option>
     </select>
 
-    <label>Events you're interested in</label>
-    <div class="checkbox-group">
-      <label class="pill">
-        <input type="checkbox" value="Birthday event"> Birthday
-      </label>
-      <label class="pill">
-        <input type="checkbox" value="Anniversary"> Anniversary
-      </label>
-      <label class="pill">
-        <input type="checkbox" value="Watch party"> Watch party
-      </label>
-      <label class="pill">
-        <input type="checkbox" value="Fan meet"> Fan meet
-      </label>
-    </div>
+    <label>Are you currently a student or working?</label>
+    <select id="status">
+      <option>Student</option>
+      <option>Working</option>
+      <option>Both</option>
+      <option>Prefer not to say</option>
+    </select>
 
     <button class="primary" onclick="nextStep(2)">Next</button>
   </div>
@@ -199,8 +113,43 @@
   <!-- STEP 2 -->
   <div id="step2" class="step">
 
-    <label>Availability</label>
-    <div class="desc">Weekends only (Saturday–Sunday)</div>
+    <label>What events would you be interested in?</label>
+    <div class="desc">Select all that apply</div>
+
+   <div>
+  <label><input type="checkbox" value="Birthday event"> Birthday events</label><br>
+  <label><input type="checkbox" value="Anniversary event"> Anniversary events</label><br>
+  <label><input type="checkbox" value="Watch party"> Online concert viewing</label><br>
+  <label><input type="checkbox" value="Offline fan gathering"> Offline fan gathering</label><br>
+  <label><input type="checkbox" value="Online fan gathering"> Online fan gathering</label><br>
+
+  <br>
+
+  <label>
+    <input type="checkbox" id="otherEventToggle"> Others (please specify)
+  </label>
+
+  <input 
+    type="text" 
+    id="otherEventText" 
+    placeholder="Please specify other event ideas"
+    style="margin-top:6px;"
+  >
+</div>
+
+    <label>What would make you more likely to attend?</label>
+    <textarea id="motivation" placeholder="e.g. affordable, close location, friends attending, etc."></textarea>
+
+    <button class="primary" onclick="nextStep(3)">Next</button>
+  </div>
+
+  <!-- STEP 3 -->
+  <div id="step3" class="step">
+
+    <label>Availability (Weekends only)</label>
+    <div class="desc">
+      Events are usually scheduled on Saturdays or Sundays to accommodate students and working members.
+    </div>
 
     <div id="slots">
       <div class="row">
@@ -213,14 +162,16 @@
       </div>
     </div>
 
-    <button class="ghost" onclick="addSlot()">+ Add another time</button>
+    <button class="ghost" onclick="addSlot()">+ Add another time slot</button>
 
-    <button class="primary" onclick="nextStep(3)">Next</button>
-  </div>
+    <label>Budget (optional)</label>
+    <input id="budget" placeholder="e.g. ₱100–₱300 or max ₱500" />
 
-  <!-- STEP 3 -->
-  <div id="step3" class="step">
-    <div class="desc">Final step</div>
+    <label>Safety or commute concerns (optional)</label>
+    <textarea id="safety"></textarea>
+
+    <label>Anything else you want us to consider?</label>
+    <textarea id="notes"></textarea>
 
     <button class="primary" onclick="submitForm()">Submit</button>
   </div>
@@ -236,14 +187,13 @@
 <script>
 const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx6AH1iXNzY7IcAlA75hRL5rJ7hKFWxi5XjayFex1ZJ8EPPYkHxqNYueEUD-Z7-unQcOQ/exec";
 
+/* NAVIGATION */
 function nextStep(step) {
   document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
   document.getElementById('step' + step).classList.add('active');
-
-  document.getElementById("progressText").innerText = `Step ${step} of 3`;
-  document.getElementById("progressFill").style.width = (step * 33) + "%";
 }
 
+/* ADD SLOT */
 function addSlot() {
   const container = document.getElementById("slots");
 
@@ -262,9 +212,10 @@ function addSlot() {
   container.appendChild(div);
 }
 
+/* SUBMIT */
 function submitForm() {
-  const rows = document.querySelectorAll("#slots .row");
 
+  const rows = document.querySelectorAll("#slots .row");
   let availability = [];
 
   rows.forEach(r => {
@@ -277,15 +228,19 @@ function submitForm() {
     }
   });
 
-  const event_interest = Array.from(
-    document.querySelectorAll(".checkbox-group input:checked")
-  ).map(cb => cb.value);
+  const interests = Array.from(document.querySelectorAll("input[type=checkbox]:checked"))
+    .map(cb => cb.value);
 
   const data = {
     name: document.getElementById("name").value,
     location: document.getElementById("location").value,
-    event_interest: event_interest,
-    availability: availability.join(", ")
+    status: document.getElementById("status").value,
+    event_interest: interests,
+    motivation: document.getElementById("motivation").value,
+    availability: availability.join(", "),
+    budget: document.getElementById("budget").value,
+    safety: document.getElementById("safety").value,
+    notes: document.getElementById("notes").value
   };
 
   fetch(WEB_APP_URL, {
@@ -295,6 +250,10 @@ function submitForm() {
   .then(() => {
     document.querySelector(".card").style.display = "none";
     document.getElementById("thankyou").style.display = "block";
+  })
+  .catch(err => {
+    console.error(err);
+    alert("Submission failed");
   });
 }
 </script>
