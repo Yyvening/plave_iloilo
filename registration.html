@@ -3,82 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PLLI Day 2026</title>
+    <title>PLLIcnic 2026 🧺✨</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@300;400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Montserrat:wght@800&family=Poppins:wght@400;600&display=swap');
 
         body { 
             font-family: 'Poppins', sans-serif; 
-            background: #0a0a0c;
-            color: #fff;
+            background: #fff0f6; 
             min-height: 100vh;
             display: flex; justify-content: center; align-items: center;
             margin: 0;
-            overflow-x: hidden;
+            overflow: hidden;
         }
 
-        body::before {
-            content: ''; position: absolute; width: 100%; height: 100%;
-            background: radial-gradient(circle at 20% 30%, #3a1c71 0%, transparent 40%),
-                        radial-gradient(circle at 80% 70%, #d76d77 0%, transparent 40%),
-                        radial-gradient(circle at 50% 50%, #1a237e 0%, transparent 60%);
-            opacity: 0.6; z-index: -1;
-            animation: pulse 10s infinite alternate;
-        }
+        /* Cutesy Background Elements */
+        body::before { content: '✨'; position: absolute; font-size: 100px; opacity: 0.1; top: 10%; left: 10%; animation: float 6s infinite ease-in-out; }
+        body::after { content: '☁️'; position: absolute; font-size: 80px; opacity: 0.2; bottom: 10%; right: 10%; animation: float 8s infinite ease-in-out reverse; }
 
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.4; }
-            100% { transform: scale(1.1); opacity: 0.7; }
-        }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
 
         .card { 
-            background: rgba(255, 255, 255, 0.03); 
-            padding: 50px; border-radius: 40px; 
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6); 
-            width: 100%; max-width: 480px; text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
+            background: white; 
+            padding: 40px; border-radius: 40px; 
+            box-shadow: 0 20px 40px rgba(255, 182, 193, 0.4); 
+            width: 100%; max-width: 450px; text-align: center;
+            border: 8px solid #ffe3ec;
+            position: relative; z-index: 10;
         }
 
-        .logo-text { 
-            font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 38px; 
-            letter-spacing: -1.5px; margin-bottom: 5px; 
-            background: linear-gradient(135deg, #fff 30%, #b3e5fc, #f8bbd0); 
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
-
-        .sub-text { font-size: 12px; color: #b3e5fc; font-weight: 600; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 30px; }
+        .logo-text { font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 42px; color: #ff85a2; margin-bottom: 0; }
+        .sub-text { font-size: 14px; color: #ffa4ba; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px; }
 
         input { 
-            width: 100%; padding: 20px; 
-            border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; 
-            box-sizing: border-box; outline: none; background: rgba(0,0,0,0.3); color: #fff;
-            transition: 0.4s; font-size: 16px; text-align: center;
+            width: 100%; padding: 18px; margin: 10px 0; 
+            border: 3px solid #ffe3ec; border-radius: 25px; 
+            box-sizing: border-box; outline: none; background: #fffafa; color: #ff85a2;
+            transition: 0.3s; font-size: 16px; text-align: center; font-family: 'Fredoka', sans-serif;
         }
 
         .btn { 
-            width: 100%; padding: 20px; 
-            background: #fff; color: #000; border: none; 
-            border-radius: 20px; cursor: pointer; font-size: 16px; 
-            font-weight: 800; text-transform: uppercase; margin-top: 25px;
+            width: 100%; padding: 18px; 
+            background: #ff85a2; color: white; border: none; 
+            border-radius: 25px; cursor: pointer; font-size: 18px; 
+            font-weight: 600; font-family: 'Fredoka', sans-serif; margin-top: 15px;
             transition: 0.3s;
         }
+        .btn:hover { transform: scale(1.03); background: #ff7096; }
 
-        #ticket-container { display: none; max-width: 650px; padding: 20px; }
+        /* Ticket Styles */
+        #ticket-container { display: none; max-width: 650px; border: none; padding: 10px; }
         
         .ticket {
             width: 100%; height: 350px;
-            border-radius: 30px;
+            border-radius: 35px;
             position: relative;
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.2);
+            background: white;
             display: flex;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            transition: border 0.5s ease;
         }
 
         .member-img {
-            position: absolute; right: 0; top: 0;
-            width: 65%; height: 100%;
+            position: absolute; right: -10%; top: 0;
+            width: 75%; height: 100%;
             background-size: cover; 
             background-position: center 15%; 
             z-index: 1;
@@ -86,54 +74,50 @@
 
         .fade-overlay {
             position: absolute; inset: 0;
-            background: linear-gradient(to right, var(--m-color) 45%, transparent 95%);
+            background: linear-gradient(to right, var(--m-color) 30%, var(--m-color) 45%, transparent 80%);
             z-index: 2;
         }
 
         .ticket-content {
             position: relative; z-index: 3;
-            padding: 35px; width: 55%;
+            padding: 40px; width: 50%;
             display: flex; flex-direction: column;
-            color: #fff;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            color: white;
         }
 
-        .details-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .detail-item { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.8; }
-        .detail-value { font-size: 12px; font-weight: 600; margin-top: 2px; }
+        .details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 25px; }
+        .detail-item { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.9; font-weight: 600; }
+        .detail-value { font-size: 13px; font-weight: 600; margin-top: 1px; }
 
         .member-badge {
-            background: rgba(255,255,255,0.1); padding: 6px 12px;
-            border-radius: 50px; font-size: 10px; font-weight: 700;
-            backdrop-filter: blur(10px); display: inline-block; 
-            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.2); padding: 6px 15px;
+            border-radius: 50px; font-size: 11px; font-weight: 600;
+            backdrop-filter: blur(5px); display: inline-block; 
+            border: 1px solid rgba(255,255,255,0.3);
         }
+
+        /* Gold Shimmer for Group Pull */
+        .gold-glow { border: 6px solid #ffd700 !important; box-shadow: 0 0 30px rgba(255, 215, 0, 0.6) !important; }
 
         @media print {
             body { background: white; }
             .card { box-shadow: none; border: none; background: transparent; }
             #ticket-container { display: block; width: 100%; }
-            .btn, .secondary-btn { display: none; }
+            .btn { display: none; }
         }
     </style>
 </head>
 <body>
 
     <div id="form-container" class="card">
-        <div class="logo-text">PLLI DAY 2026</div>
-        <div class="sub-text">PLLI Anniversary Event</div>
-        <p style="font-size: 14px; opacity: 0.8; margin-bottom: 25px;">Ready for a picnic in Asterum? Enter your name to generate your event pass.</p>
-        <input type="text" id="userName" placeholder="PLLI NAME" required>
-        <button class="btn" onclick="pullGacha()">Join the PLLIcnic ✨</button>
+        <div class="logo-text">PLLIcnic 🧺</div>
+        <div class="sub-text">Anniversary Event</div>
+        <p style="font-size: 15px; color: #ff85a2; margin-bottom: 25px; font-family: 'Fredoka';">Ready for a picnic in Asterum?<br>Enter your name to register ♡</p>
+        <input type="text" id="userName" placeholder="Type your name here ♡" required>
+        <button class="btn" onclick="pullGacha()">Check My Invitation 🎟️</button>
     </div>
 
-    <div id="ticket-container" class="card">
+    <div id="ticket-container">
         <div id="ticket-body" class="ticket" style="--m-color: #212121;">
             <div id="member-photo" class="member-img"></div>
             <div class="fade-overlay"></div>
@@ -141,7 +125,7 @@
             <div class="ticket-content">
                 <div>
                     <div id="member-tag" class="member-badge">✦ MEMBER</div>
-                    <h2 style="margin: 15px 0 5px 0; font-family: 'Montserrat'; line-height: 1.1;">PLLIcnic<br>ENTRY PASS</h2>
+                    <h2 style="margin: 15px 0 5px 0; font-family: 'Montserrat'; font-size: 28px; line-height: 1;">PLLIcnic<br>ENTRY</h2>
                 </div>
 
                 <div class="details-grid">
@@ -158,19 +142,19 @@
                         <div class="detail-value">06:00 PM KST</div>
                     </div>
                     <div>
-                        <div class="detail-item">Ticket ID</div>
+                        <div class="detail-item">Pass ID</div>
                         <div id="ticket-id" class="detail-value"></div>
                     </div>
                 </div>
 
                 <div style="margin-top: auto;">
-                    <div class="detail-item">Authorized PLLI</div>
-                    <div id="display-name" style="font-size: 24px; font-weight: 800;"></div>
+                    <div class="detail-item">PLLI Name</div>
+                    <div id="display-name" style="font-size: 26px; font-weight: 800; font-family: 'Fredoka';"></div>
                 </div>
             </div>
         </div>
-        <button id="dl-btn" class="btn" onclick="window.print()">Download Pass (PDF)</button>
-        <button class="btn" onclick="location.reload()" style="background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.2); margin-top: 10px; font-size: 12px; padding: 12px;">Back to Entrance</button>
+        <button id="dl-btn" class="btn" onclick="window.print()" style="margin-top: 20px;">Save to Gallery ☁️</button>
+        <button class="btn" onclick="location.reload()" style="background: transparent; color: #ff85a2; border: 2px solid #ffe3ec; margin-top: 10px; font-size: 12px; padding: 10px;">Back to Entrance</button>
     </div>
 
     <script>
@@ -179,27 +163,43 @@
             { name: "Noah", color: "#9c27b0", img: "https://lh3.googleusercontent.com/u/0/d/1bN_jEuWfTTAP8_wh7lIq2Q4h_qIAITEV" },
             { name: "Bamby", color: "#f06292", img: "https://lh3.googleusercontent.com/u/0/d/1SPsMIsrSgRuHSfQYUjpps7WlTjPXScpa" },
             { name: "Eunho", color: "#e53935", img: "https://lh3.googleusercontent.com/u/0/d/1XE-9iK_sJCz3qXSs-3hLIz72BfWd-0cQ" },
-            { name: "Hamin", color: "#121212", img: "https://lh3.googleusercontent.com/u/0/d/10DQpAQ_tpimS3i9kgzUrClLAjZrt2beR" }
+            { name: "Hamin", color: "#121212", img: "https://lh3.googleusercontent.com/u/0/d/10DQpAQ_tpimS3i9kgzUrClLAjZrt2beR" },
+            { name: "PLAVE", color: "#4a148c", img: "https://lh3.googleusercontent.com/u/0/d/1RAlKHD8n_DaSdyu0Add2RWt0qFHIqn4I" }
         ];
 
         function pullGacha() {
             const name = document.getElementById('userName').value;
-            if (!name) return alert("Please enter your name!");
+            if (!name) return alert("Please enter your name! ♡");
 
-            const result = gachaPool[Math.floor(Math.random() * gachaPool.length)];
+            // Probability Logic: 10% chance for Group Pull
+            let result;
+            const chance = Math.random();
+            if (chance < 0.10) {
+                result = gachaPool[5]; // Group Pull
+            } else {
+                result = gachaPool[Math.floor(Math.random() * 5)]; // Individual Pull
+            }
+
             const ticket = document.getElementById('ticket-body');
             const photo = document.getElementById('member-photo');
+            const tag = document.getElementById('member-tag');
             
+            // Set visuals
             ticket.style.setProperty('--m-color', result.color);
             photo.style.backgroundImage = `url('${result.img}')`;
-            document.getElementById('member-tag').innerText = "✦ " + result.name.toUpperCase();
             
-            const dlBtn = document.getElementById('dl-btn');
-            dlBtn.style.background = result.color;
-            dlBtn.style.color = "white";
-
+            if (result.name === "PLAVE (Group)") {
+                ticket.classList.add('gold-glow');
+                tag.innerText = "✨ FULL GROUP ✨";
+                tag.style.background = "linear-gradient(45deg, #ffd700, #ff85a2)";
+            } else {
+                ticket.classList.remove('gold-glow');
+                tag.innerText = "✦ " + result.name.toUpperCase();
+                tag.style.background = "rgba(255,255,255,0.2)";
+            }
+            
             document.getElementById('display-name').innerText = name.toUpperCase();
-            document.getElementById('ticket-id').innerText = 'PL-' + Math.floor(10000 + Math.random() * 90000);
+            document.getElementById('ticket-id').innerText = 'PLLI-' + Math.floor(1000 + Math.random() * 9000);
 
             document.getElementById('form-container').style.display = 'none';
             document.getElementById('ticket-container').style.display = 'block';
