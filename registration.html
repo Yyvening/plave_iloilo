@@ -3,79 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Event Registration</title>
+    <title>PLLI Day 🎀</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; display: flex; justify-content: center; padding: 50px; }
-        .card { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
-        h2 { color: #333; margin-top: 0; }
-        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
-        button { width: 100%; padding: 12px; background: #007bff; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; transition: 0.3s; }
-        button:hover { background: #0056b3; }
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@400;600&display=swap');
 
-        /* Ticket Styling */
-        #ticket-container { display: none; text-align: center; }
-        .ticket {
-            background: linear-gradient(135deg, #6e8efb, #a777e3);
-            color: white;
-            padding: 20px;
-            border-radius: 15px;
-            border: 2px dashed #fff;
-            margin-bottom: 20px;
-            position: relative;
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background: linear-gradient(135deg, #fce4ec, #e1f5fe, #f3e5f5);
+            min-height: 100vh;
+            display: flex; justify-content: center; align-items: center;
+            margin: 0;
         }
-        .ticket h1 { margin: 0; font-size: 24px; text-transform: uppercase; }
-        .ticket-info { margin: 20px 0; border-top: 1px solid rgba(255,255,255,0.3); padding-top: 15px; }
-        .download-btn { background: #28a745; margin-top: 10px; }
+
+        .card { 
+            background: rgba(255, 255, 255, 0.95); 
+            padding: 40px; border-radius: 30px; 
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); 
+            width: 100%; max-width: 400px; text-align: center;
+        }
+
+        input { 
+            width: 100%; padding: 15px; margin: 12px 0; 
+            border: 2px solid #eee; border-radius: 50px; 
+            box-sizing: border-box; outline: none;
+        }
+
+        .btn { 
+            width: 100%; padding: 15px; 
+            background: #ff80ab; color: white; border: none; 
+            border-radius: 50px; cursor: pointer; font-size: 18px; 
+            font-weight: bold; text-transform: uppercase; margin-top: 10px;
+        }
+
+        /* Ticket Styles */
+        #ticket-container { display: none; }
+        .ticket {
+            width: 100%; height: 250px;
+            border-radius: 20px;
+            padding: 25px;
+            box-sizing: border-box;
+            text-align: left;
+            position: relative;
+            transition: all 0.5s ease;
+            border: 4px double rgba(255,255,255,0.3);
+        }
         
+        .member-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            background: rgba(255,255,255,0.2);
+        }
+
+        .ticket h1 { margin: 0; font-size: 28px; font-family: 'Montserrat', sans-serif; }
+        .info-label { font-size: 10px; text-transform: uppercase; opacity: 0.8; margin-top: 30px; }
+        .info-value { font-size: 20px; font-weight: bold; }
+
         @media print {
             body * { visibility: hidden; }
             #ticket-container, #ticket-container * { visibility: visible; }
             #ticket-container { position: absolute; left: 0; top: 0; width: 100%; }
-            .download-btn { display: none; }
+            .btn { display: none; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Registration Form -->
     <div id="form-container" class="card">
-        <h2>Join the Event! 🚀</h2>
-        <p>Fill in your details to get your ticket.</p>
-        <input type="text" id="userName" placeholder="Full Name" required>
-        <input type="email" id="userEmail" placeholder="Email Address" required>
-        <button onclick="generateTicket()">Register & Get Ticket</button>
+        <h2 style="color: #ff80ab;">MEMBER GACHA ✨</h2>
+        <p>Enter your name to pull your bias!</p>
+        <input type="text" id="userName" placeholder="Attendee Name" required>
+        <button class="btn" onclick="pullGacha()">Summon Ticket ♡</button>
     </div>
 
-    <!-- Ticket Preview -->
     <div id="ticket-container" class="card">
-        <div class="ticket" id="print-area">
-            <h1>VIP PASS</h1>
-            <div class="ticket-info">
-                <p><strong>Attendee:</strong> <span id="display-name"></span></p>
-                <p><strong>Ticket ID:</strong> <span id="ticket-id"></span></p>
-                <p><strong>Date:</strong> May 25, 2026</p>
+        <div id="ticket-body" class="ticket">
+            <div id="member-tag" class="member-badge"></div>
+            <h1 id="ticket-title">VIP PASS</h1>
+            <div class="info-label">Attendee</div>
+            <div id="display-name" class="info-value"></div>
+            <div style="margin-top: 15px;">
+                <div class="info-label">Ticket ID</div>
+                <div id="ticket-id" style="font-size: 12px;"></div>
             </div>
-            <p style="font-size: 12px; opacity: 0.8;">Show this at the entrance</p>
         </div>
-        <button class="download-btn" onclick="window.print()">Download as PDF</button>
+        <button id="dl-btn" class="btn" onclick="window.print()" style="margin-top: 20px;">Download PDF</button>
     </div>
 
     <script>
-        function generateTicket() {
+        const gachaPool = [
+            { name: "Yejun", color: "#00b0ff", text: "white" }, // Blue
+            { name: "Noah", color: "#9c27b0", text: "white" },  // Purple
+            { name: "Bamby", color: "#f06292", text: "white" }, // Pink
+            { name: "Eunho", color: "#e53935", text: "white" }, // Red
+            { name: "Hamin", color: "#212121", text: "white" }  // Black
+        ];
+
+        function pullGacha() {
             const name = document.getElementById('userName').value;
-            const email = document.getElementById('userEmail').value;
+            if (!name) return alert("Please enter your name!");
 
-            if (name && email) {
-                // Populate ticket
-                document.getElementById('display-name').innerText = name;
-                document.getElementById('ticket-id').innerText = 'TIC-' + Math.floor(Math.random() * 1000000);
+            // Randomize selection
+            const result = gachaPool[Math.floor(Math.random() * gachaPool.length)];
+            
+            // Apply Gacha results
+            const ticket = document.getElementById('ticket-body');
+            const memberTag = document.getElementById('member-tag');
+            
+            ticket.style.backgroundColor = result.color;
+            ticket.style.color = result.text;
+            memberTag.innerText = "✦ " + result.name.toUpperCase();
+            document.getElementById('dl-btn').style.background = result.color;
 
-                // Switch views
-                document.getElementById('form-container').style.display = 'none';
-                document.getElementById('ticket-container').style.display = 'block';
-            } else {
-                alert("Please fill out all fields!");
-            }
+            // Fill details
+            document.getElementById('display-name').innerText = name.toUpperCase();
+            document.getElementById('ticket-id').innerText = 'GT-' + Math.floor(1000 + Math.random() * 9000);
+
+            // UI Swap
+            document.getElementById('form-container').style.display = 'none';
+            document.getElementById('ticket-container').style.display = 'block';
         }
     </script>
 </body>
