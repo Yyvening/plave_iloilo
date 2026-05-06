@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Registration</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; display: flex; justify-content: center; padding: 50px; }
+        .card { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
+        h2 { color: #333; margin-top: 0; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; background: #007bff; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; transition: 0.3s; }
+        button:hover { background: #0056b3; }
+
+        /* Ticket Styling */
+        #ticket-container { display: none; text-align: center; }
+        .ticket {
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px dashed #fff;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .ticket h1 { margin: 0; font-size: 24px; text-transform: uppercase; }
+        .ticket-info { margin: 20px 0; border-top: 1px solid rgba(255,255,255,0.3); padding-top: 15px; }
+        .download-btn { background: #28a745; margin-top: 10px; }
+        
+        @media print {
+            body * { visibility: hidden; }
+            #ticket-container, #ticket-container * { visibility: visible; }
+            #ticket-container { position: absolute; left: 0; top: 0; width: 100%; }
+            .download-btn { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Registration Form -->
+    <div id="form-container" class="card">
+        <h2>Join the Event! 🚀</h2>
+        <p>Fill in your details to get your ticket.</p>
+        <input type="text" id="userName" placeholder="Full Name" required>
+        <input type="email" id="userEmail" placeholder="Email Address" required>
+        <button onclick="generateTicket()">Register & Get Ticket</button>
+    </div>
+
+    <!-- Ticket Preview -->
+    <div id="ticket-container" class="card">
+        <div class="ticket" id="print-area">
+            <h1>VIP PASS</h1>
+            <div class="ticket-info">
+                <p><strong>Attendee:</strong> <span id="display-name"></span></p>
+                <p><strong>Ticket ID:</strong> <span id="ticket-id"></span></p>
+                <p><strong>Date:</strong> May 25, 2026</p>
+            </div>
+            <p style="font-size: 12px; opacity: 0.8;">Show this at the entrance</p>
+        </div>
+        <button class="download-btn" onclick="window.print()">Download as PDF</button>
+    </div>
+
+    <script>
+        function generateTicket() {
+            const name = document.getElementById('userName').value;
+            const email = document.getElementById('userEmail').value;
+
+            if (name && email) {
+                // Populate ticket
+                document.getElementById('display-name').innerText = name;
+                document.getElementById('ticket-id').innerText = 'TIC-' + Math.floor(Math.random() * 1000000);
+
+                // Switch views
+                document.getElementById('form-container').style.display = 'none';
+                document.getElementById('ticket-container').style.display = 'block';
+            } else {
+                alert("Please fill out all fields!");
+            }
+        }
+    </script>
+</body>
+</html>
