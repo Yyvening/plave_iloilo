@@ -42,26 +42,11 @@
       overflow: hidden;
     }
 
-    /* HEADER */
     .card-header {
       padding: 32px 32px 26px;
-      background: linear-gradient(135deg,
-        #5b8dee 0%,
-        #9f7aea 28%,
-        #f472b6 58%,
-        #f87171 80%,
-        #4a3f5c 100%
-      );
+      background: linear-gradient(135deg,#5b8dee 0%,#9f7aea 28%,#f472b6 58%,#f87171 80%,#4a3f5c 100%);
       position: relative;
       overflow: hidden;
-    }
-
-    .card-header::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at 80% 20%, rgba(255,255,255,0.12) 0%, transparent 60%);
-      pointer-events: none;
     }
 
     .card-header h1 {
@@ -69,141 +54,42 @@
       font-size: 21px;
       font-weight: 500;
       color: white;
-      letter-spacing: 0.015em;
       margin-bottom: 7px;
-      position: relative;
     }
 
-    .card-header p {
-      font-size: 12.5px;
-      color: rgba(255,255,255,0.87);
-      line-height: 1.55;
-      position: relative;
-    }
+    .card-header p { font-size: 12.5px; color: rgba(255,255,255,0.87); }
 
-    /* PROGRESS */
-    .progress-wrap {
-      padding: 0 32px;
-      background: #faf9fd;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .progress-track {
-      display: flex;
-      align-items: center;
-    }
-
-    .prog-step {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      padding: 13px 0;
-      position: relative;
-    }
-
-    .prog-step:not(:last-child)::after {
-      content: '';
-      position: absolute;
-      right: 0; top: 50%;
-      transform: translateY(-50%);
-      height: 20px; width: 1px;
-      background: var(--border);
-    }
-
-    .prog-num {
-      width: 24px; height: 24px;
-      border-radius: 50%;
-      border: 1.5px solid var(--border);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 11px; font-weight: 600;
-      color: var(--muted);
-      flex-shrink: 0;
-      transition: all 0.3s;
-      background: white;
-    }
-
-    .prog-step.active .prog-num  { background: var(--blue);   border-color: var(--blue);   color: white; }
-    .prog-step.done   .prog-num  { background: var(--purple); border-color: var(--purple); color: white; }
-
-    .prog-text {
-      font-size: 10.5px; font-weight: 500;
-      color: var(--muted); line-height: 1.2;
-    }
-
-    .prog-step.active .prog-text { color: var(--blue); }
-    .prog-step.done   .prog-text { color: var(--purple); }
-
-    /* BODY */
     .card-body { padding: 28px 32px 32px; }
 
     .step { display: none; }
-    .step.active { display: block; animation: fadeUp 0.25s ease; }
+    .step.active { display: block; }
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(8px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    /* LABELS */
     .section-label {
-      font-size: 10px; font-weight: 600;
-      letter-spacing: 0.12em; text-transform: uppercase;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
       color: var(--purple);
       margin-bottom: 20px;
-      padding-bottom: 8px;
       border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
     }
 
-    .subsection-label {
-      font-size: 10px; font-weight: 600;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--pink);
-      margin: 22px 0 14px;
-    }
-
-    /* FIELD */
     .field { margin-bottom: 20px; }
 
-    .field .q {
-      display: block;
-      font-size: 13.5px; font-weight: 600;
-      color: var(--text);
-      margin-bottom: 4px; line-height: 1.4;
-    }
+    .field .q { font-size: 13.5px; font-weight: 600; margin-bottom: 4px; display:block; }
+    .hint { font-size: 11.5px; color: var(--muted); margin-bottom: 9px; display:block; }
 
-    .field .hint {
-      font-size: 11.5px; color: var(--muted);
-      line-height: 1.5; margin-bottom: 9px;
-      display: block;
-    }
-
-    /* INPUTS */
-    input[type=text], input[type=time], select, textarea {
+    input, select, textarea {
       width: 100%;
       padding: 10px 13px;
       border-radius: 10px;
       border: 1.5px solid var(--border);
       font-size: 13px;
-      font-family: 'DM Sans', sans-serif;
-      color: var(--text);
-      background: white;
-      transition: border-color 0.2s, box-shadow 0.2s;
       outline: none;
-      -webkit-appearance: none;
     }
 
-    input:focus, select:focus, textarea:focus {
-      border-color: var(--blue);
-      box-shadow: 0 0 0 3px rgba(91,141,238,0.08);
-    }
-
-    textarea { resize: vertical; min-height: 78px; }
-
-    /* PILLS */
-    .pill-group {
-      display: flex; flex-wrap: wrap; gap: 7px;
-    }
+    .pill-group { display:flex; flex-wrap:wrap; gap:7px; }
 
     .pill {
       padding: 8px 14px;
@@ -211,15 +97,10 @@
       border: 1.5px solid var(--border);
       font-size: 12.5px;
       cursor: pointer;
-      background: white;
-      user-select: none;
-      transition: all 0.18s;
-      font-family: 'DM Sans', sans-serif;
-      color: var(--text);
-      display: inline-flex; align-items: center; gap: 5px;
+      background:white;
     }
 
-    .pill input { display: none; }
+    .pill input { display:none; }
 
     .pill:has(input:checked) {
       background: var(--blue);
@@ -227,140 +108,23 @@
       border-color: var(--blue);
     }
 
-    .pill:hover:not(:has(input:checked)) {
-      border-color: var(--blue);
-      color: var(--blue);
-    }
+    .error-msg { color: var(--red); font-size: 11px; display:none; margin-top:5px; }
 
-    /* Others inline */
-    .others-wrap {
-      display: inline-flex; align-items: center; gap: 6px;
-    }
+    .field.has-error .error-msg { display:block; }
 
-    .others-text-input {
-      padding: 7px 11px;
-      border-radius: 10px;
-      border: 1.5px solid var(--border);
-      font-size: 12px;
-      font-family: 'DM Sans', sans-serif;
-      width: 150px;
-      display: none;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    .others-text-input.visible { display: inline-block; }
-    .others-text-input:focus { border-color: var(--blue); }
-
-    /* AVAILABILITY ROWS */
-    .avail-row {
-      display: grid;
-      grid-template-columns: 120px 1fr 1fr 26px;
-      gap: 6px; align-items: center;
-      margin-bottom: 8px;
-    }
-
-    .remove-btn {
-      background: none; border: none;
-      font-size: 13px; cursor: pointer;
-      color: #ccc; padding: 0;
-      transition: color 0.18s;
-      display: flex; align-items: center; justify-content: center;
-      width: auto; margin: 0; flex: none;
-    }
-
-    .remove-btn:hover { color: var(--red); }
-
-    /* VALIDATION */
-    .error-msg {
-      font-size: 11.5px; color: var(--red);
-      margin-top: 5px; display: none;
-    }
-
-    .field.has-error input,
-    .field.has-error select,
-    .field.has-error textarea { border-color: var(--red); }
-
-    .field.has-error .error-msg { display: block; }
-
-    /* BUTTONS */
-    .btn-row { display: flex; gap: 10px; margin-top: 26px; }
+    .btn-row { display:flex; gap:10px; margin-top:26px; }
 
     button {
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 600; font-size: 13px;
-      border: none; border-radius: 12px;
-      cursor: pointer; padding: 12px 20px;
-      transition: all 0.2s;
+      font-family: 'DM Sans';
+      font-weight: 600;
+      border:none;
+      border-radius:12px;
+      padding:12px 20px;
+      cursor:pointer;
     }
 
-    .btn-primary {
-      flex: 1;
-      background: linear-gradient(135deg, var(--blue), var(--purple));
-      color: white;
-      box-shadow: 0 4px 14px rgba(91,141,238,0.22);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 20px rgba(91,141,238,0.32);
-    }
-
-    .btn-back {
-      background: transparent;
-      border: 1.5px dashed var(--border);
-      color: var(--muted);
-      flex: none; min-width: 80px;
-    }
-
-    .btn-back:hover { border-color: var(--blue); color: var(--blue); }
-
-    .btn-add {
-      background: transparent;
-      border: 1.5px dashed var(--border);
-      color: var(--muted);
-      font-size: 12px; padding: 8px 14px;
-      border-radius: 10px;
-      display: inline-flex; align-items: center; gap: 4px;
-      margin-top: 4px; width: auto;
-    }
-
-    .btn-add:hover { border-color: var(--blue); color: var(--blue); }
-
-    /* DIVIDER */
-    .divider { height: 1px; background: var(--border); margin: 24px 0; }
-
-    /* THANK YOU */
-    #thankyou {
-      display: none;
-      text-align: center;
-      padding: 72px 32px;
-    }
-
-    .ty-icon { font-size: 44px; margin-bottom: 16px; display: block; }
-
-    #thankyou h2 {
-      font-family: 'Lora', serif;
-      font-size: 26px; font-weight: 500;
-      margin-bottom: 10px;
-      background: linear-gradient(135deg, var(--blue), var(--purple), var(--pink));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    #thankyou p {
-      font-size: 13px; color: var(--muted);
-      line-height: 1.6; max-width: 380px; margin: 0 auto;
-    }
-
-    @media (max-width: 480px) {
-      .card-body { padding: 22px 20px 28px; }
-      .card-header { padding: 26px 20px 22px; }
-      .progress-wrap { padding: 0 20px; }
-      .avail-row { grid-template-columns: 110px 1fr 1fr 22px; }
-      .prog-text { display: none; }
-    }
+    .btn-primary { flex:1; background: linear-gradient(135deg,var(--blue),var(--purple)); color:white; }
+    .btn-back { background:transparent; border:1.5px dashed var(--border); }
   </style>
 </head>
 <body>
@@ -372,15 +136,6 @@
     <p>Help us plan small but meaningful events for PLLIs around Iloilo.</p>
   </div>
 
-  <div class="progress-wrap">
-    <div class="progress-track">
-      <div class="prog-step active" id="prog1"><div class="prog-num" id="pnum1">1</div><div class="prog-text">Basic Info</div></div>
-      <div class="prog-step" id="prog2"><div class="prog-num" id="pnum2">2</div><div class="prog-text">Interests</div></div>
-      <div class="prog-step" id="prog3"><div class="prog-num" id="pnum3">3</div><div class="prog-text">Barriers</div></div>
-      <div class="prog-step" id="prog4"><div class="prog-num" id="pnum4">4</div><div class="prog-text">Show Up</div></div>
-    </div>
-  </div>
-
   <div class="card-body">
 
     <!-- STEP 1 -->
@@ -388,36 +143,33 @@
       <div class="section-label">1 — Basic Info</div>
 
       <div class="field" id="field-name">
-        <span class="q">Name <span style="color:var(--red);font-size:11px;font-weight:400;">required</span></span>
-        <span class="hint">Just your first name + last initial (e.g. Krystal L.) so we know who responded.</span>
-        <input type="text" id="name" placeholder="e.g. Krystal L.">
-        <div class="error-msg">Please enter your name.</div>
+        <span class="q">Name <span style="color:var(--red)">*</span></span>
+        <input type="text" id="name">
+        <div class="error-msg">Required</div>
       </div>
 
-      <div class="field">
-        <span class="q">Where are you currently based?</span>
-        <span class="hint">This helps us understand travel needs for Iloilo City events.</span>
+      <div class="field" id="field-location">
+        <span class="q">Location <span style="color:var(--red)">*</span></span>
         <div class="pill-group">
           <label class="pill"><input type="radio" name="location" value="Iloilo City"> Iloilo City</label>
-          <label class="pill"><input type="radio" name="location" value="Iloilo Province"> Within Iloilo Province (outside the city)</label>
-          <label class="pill"><input type="radio" name="location" value="Outside Iloilo (can travel)"> Outside Iloilo — willing to travel</label>
-          <label class="pill"><input type="radio" name="location" value="Outside Iloilo (unlikely)"> Outside Iloilo — unlikely to attend</label>
+          <label class="pill"><input type="radio" name="location" value="Province"> Province</label>
+          <label class="pill"><input type="radio" name="location" value="Outside"> Outside Iloilo</label>
         </div>
+        <div class="error-msg">Required</div>
       </div>
 
-      <div class="field">
-        <span class="q">Are you:</span>
-        <span class="hint">Helps us balance scheduling and budget expectations.</span>
+      <div class="field" id="field-status">
+        <span class="q">Status <span style="color:var(--red)">*</span></span>
         <div class="pill-group">
           <label class="pill"><input type="radio" name="status" value="Student"> Student</label>
           <label class="pill"><input type="radio" name="status" value="Working"> Working</label>
           <label class="pill"><input type="radio" name="status" value="Both"> Both</label>
-          <label class="pill"><input type="radio" name="status" value="Prefer not to say"> Prefer not to say</label>
         </div>
+        <div class="error-msg">Required</div>
       </div>
 
       <div class="btn-row">
-        <button class="btn-primary" onclick="goToStep(2)">Next →</button>
+        <button class="btn-primary" onclick="goToStep(2)">Next</button>
       </div>
     </div>
 
@@ -426,285 +178,110 @@
       <div class="section-label">2 — Event Interest</div>
 
       <div class="field" id="field-events">
-        <span class="q">Which events would you realistically attend?</span>
-        <span class="hint">Select all that you would genuinely consider joining.</span>
+        <span class="q">Events you would attend <span style="color:var(--red)">*</span></span>
         <div class="pill-group">
-          <label class="pill"><input type="checkbox" value="Birthday cupsleeve events"> Birthday cupsleeve events</label>
-          <label class="pill"><input type="checkbox" value="PLAVE / PLLI anniversary events"> Anniversary events</label>
-          <label class="pill"><input type="checkbox" value="Online concert viewing"> Online concert viewing</label>
-          <label class="pill"><input type="checkbox" value="Small fan meet / bonding"> Small fan meet / bonding</label>
-          <label class="pill"><input type="checkbox" value="Photocard trading"> Photocard trading</label>
-          <label class="pill"><input type="checkbox" value="Games / mini activities"> Games / mini activities</label>
-          <span class="others-wrap">
-            <label class="pill"><input type="checkbox" id="othersEventCheck" onchange="toggleOthers('othersEventCheck','othersEventInput')"> Others</label>
-            <input type="text" id="othersEventInput" class="others-text-input" placeholder="Please specify…">
-          </span>
+          <label class="pill"><input type="checkbox" value="Cupsleeve"> Cupsleeve</label>
+          <label class="pill"><input type="checkbox" value="Viewing"> Viewing party</label>
+          <label class="pill"><input type="checkbox" value="Fan meet"> Fan meet</label>
         </div>
-        <div class="error-msg">Please select at least one event type.</div>
+        <div class="error-msg">Required</div>
       </div>
 
       <div class="btn-row">
-        <button class="btn-back" onclick="goToStep(1)">← Back</button>
-        <button class="btn-primary" onclick="goToStep(3)">Next →</button>
+        <button class="btn-back" onclick="goToStep(1)">Back</button>
+        <button class="btn-primary" onclick="goToStep(3)">Next</button>
       </div>
     </div>
 
     <!-- STEP 3 -->
     <div id="step3" class="step">
-      <div class="section-label">3 — Attendance Barriers</div>
+      <div class="section-label">3 — Attendance Info</div>
 
-      <div class="subsection-label">✦ Location & Commute</div>
-
-      <div class="field">
-        <span class="q">If an event is held within Iloilo City, how easy is it for you to attend?</span>
-        <span class="hint">Think about transportation, distance, and familiarity with the area.</span>
+      <div class="field" id="field-commute">
+        <span class="q">Commute ease <span style="color:var(--red)">*</span></span>
         <div class="pill-group">
-          <label class="pill"><input type="radio" name="commute" value="Easy, no issues"> Easy, no issues</label>
-          <label class="pill"><input type="radio" name="commute" value="Depends on location"> Depends on the exact location</label>
-          <label class="pill"><input type="radio" name="commute" value="Difficult"> Difficult — transport is a problem</label>
-          <label class="pill"><input type="radio" name="commute" value="Not familiar with commuting"> Not familiar with commuting</label>
+          <label class="pill"><input type="radio" name="commute" value="Easy"> Easy</label>
+          <label class="pill"><input type="radio" name="commute" value="Hard"> Hard</label>
         </div>
+        <div class="error-msg">Required</div>
       </div>
 
-      <div class="field">
-        <span class="q">Which areas in Iloilo City are easiest for you to go to?</span>
-        <span class="hint">Example: SM City, Festive Walk, Jaro, etc.</span>
-        <input type="text" id="easyAreas" placeholder="e.g. SM City, Festive Walk">
-      </div>
-
-      <div class="field" id="field-helpers">
-        <span class="q">Which of the following would make it easier for you to attend?</span>
-        <span class="hint">Select anything that would help reduce your hesitation.</span>
-        <div class="pill-group" id="helpersPills">
-          <label class="pill"><input type="checkbox" value="Meetup / buddy system"> Meetup / buddy system</label>
-          <label class="pill"><input type="checkbox" value="Clear commute guides"> Clear commute guides</label>
-          <label class="pill"><input type="checkbox" value="Central / public venue"> Central / public venue</label>
-          <label class="pill"><input type="checkbox" value="Daytime schedule"> Daytime schedule</label>
-          <label class="pill"><input type="checkbox" value="Smaller group setting"> Smaller group setting</label>
-        </div>
-      </div>
-
-      <div class="divider"></div>
-      <div class="subsection-label">✦ Schedule</div>
-
-      <div class="field">
-        <span class="q">Availability (Day + Time)</span>
-        <span class="hint">We usually plan events on weekends so more people can join — but this may expand in the future. Add one or more time slots that work for you.</span>
-        <div id="slots"></div>
-        <button class="btn-add" onclick="addSlot()">+ Add another time slot</button>
-      </div>
-
-      <div class="divider"></div>
-      <div class="subsection-label">✦ Budget</div>
-
-      <div class="field">
-        <span class="q">What is your comfortable budget for attending a fan event?</span>
-        <span class="hint">This can include entrance fees or shared costs.</span>
+      <div class="field" id="field-budget">
+        <span class="q">Budget <span style="color:var(--red)">*</span></span>
         <div class="pill-group">
-          <label class="pill"><input type="radio" name="budget" value="Under ₱200"> Under ₱200</label>
-          <label class="pill"><input type="radio" name="budget" value="₱200–500"> ₱200–500</label>
-          <label class="pill"><input type="radio" name="budget" value="₱500–1000"> ₱500–1000</label>
-          <label class="pill"><input type="radio" name="budget" value="₱1000+"> ₱1000+</label>
-          <label class="pill"><input type="radio" name="budget" value="Depends on the event"> Depends on the event</label>
-          <label class="pill"><input type="radio" name="budget" value="Prefer not to say"> Prefer not to say</label>
+          <label class="pill"><input type="radio" name="budget" value="<200"> <200</label>
+          <label class="pill"><input type="radio" name="budget" value=">200"> >200</label>
         </div>
-      </div>
-
-      <div class="divider"></div>
-      <div class="subsection-label">✦ Safety & Comfort</div>
-
-      <div class="field">
-        <span class="q">Do you have any concerns about attending fan events?</span>
-        <span class="hint">This can include safety, social comfort, or uncertainty.</span>
-        <div class="pill-group">
-          <label class="pill"><input type="radio" name="hasConcerns" value="Yes"> Yes</label>
-          <label class="pill"><input type="radio" name="hasConcerns" value="Sometimes"> Sometimes</label>
-          <label class="pill"><input type="radio" name="hasConcerns" value="No"> No</label>
-          <label class="pill"><input type="radio" name="hasConcerns" value="Prefer not to say"> Prefer not to say</label>
-        </div>
-      </div>
-
-      <div class="field">
-        <span class="q">What would help you feel more comfortable attending? <span style="color:var(--muted);font-weight:400;">(optional)</span></span>
-        <span class="hint">Select anything that would make the experience better for you.</span>
-        <div class="pill-group" id="comfortPills">
-          <label class="pill"><input type="checkbox" value="Well-known / public venue"> Well-known / public venue</label>
-          <label class="pill"><input type="checkbox" value="Clear organizers / hosts"> Clear organizers / hosts</label>
-          <label class="pill"><input type="checkbox" value="Smaller group"> Smaller group</label>
-          <label class="pill"><input type="checkbox" value="Going with others"> Going with others</label>
-          <label class="pill"><input type="checkbox" value="Clear event details beforehand"> Clear event details beforehand</label>
-          <span class="others-wrap">
-            <label class="pill"><input type="checkbox" id="othersSafetyCheck" onchange="toggleOthers('othersSafetyCheck','othersSafetyInput')"> Other</label>
-            <input type="text" id="othersSafetyInput" class="others-text-input" placeholder="Please specify…">
-          </span>
-        </div>
+        <div class="error-msg">Required</div>
       </div>
 
       <div class="btn-row">
-        <button class="btn-back" onclick="goToStep(2)">← Back</button>
-        <button class="btn-primary" onclick="goToStep(4)">Next →</button>
+        <button class="btn-back" onclick="goToStep(2)">Back</button>
+        <button class="btn-primary" onclick="goToStep(4)">Next</button>
       </div>
     </div>
 
     <!-- STEP 4 -->
     <div id="step4" class="step">
-      <div class="section-label">4 — What Would Make You Show Up</div>
+      <div class="section-label">4 — Optional</div>
 
-      <div class="field">
-        <span class="q">What would make you actually attend an event? <span style="color:var(--muted);font-weight:400;">(optional)</span></span>
-        <span class="hint">Be as realistic as possible — this helps us plan better.</span>
-        <textarea id="motivation" placeholder="e.g. lower cost, a friend going, venue near me…"></textarea>
-      </div>
-
-      <div class="field">
-        <span class="q">Anything else you want us to know? <span style="color:var(--muted);font-weight:400;">(optional)</span></span>
-        <textarea id="notes" placeholder="Open to any thoughts, concerns, or suggestions…"></textarea>
-      </div>
+      <textarea placeholder="Anything else (optional)"></textarea>
 
       <div class="btn-row">
-        <button class="btn-back" onclick="goToStep(3)">← Back</button>
-        <button class="btn-primary" onclick="submitForm()">Submit 💙</button>
+        <button class="btn-back" onclick="goToStep(3)">Back</button>
+        <button class="btn-primary" onclick="submitForm()">Submit</button>
       </div>
     </div>
 
   </div>
 </div>
 
-<div id="thankyou" class="card" style="max-width:660px;width:100%;">
-  <span class="ty-icon">💙</span>
-  <h2>Thank you!</h2>
-  <p>Your response has been recorded. We'll use this to plan better, more meaningful PLAVE events in Iloilo.</p>
-</div>
-
 <script>
-const WEB_APP_URL = "YOUR_WEB_APP_URL_HERE";
-
-window.addEventListener('DOMContentLoaded', () => addSlot(false));
-
-function goToStep(n) {
-  const current = parseInt(document.querySelector('.step.active').id.replace('step',''));
-  if (n > current && !validateStep(current)) return;
-
-  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-  document.getElementById('step' + n).classList.add('active');
-
-  for (let i = 1; i <= 4; i++) {
-    const step = document.getElementById('prog' + i);
-    const num  = document.getElementById('pnum' + i);
-    step.classList.remove('active','done');
-    if (i < n)      { step.classList.add('done');   num.textContent = '✓'; }
-    else if (i===n) { step.classList.add('active'); num.textContent = i;   }
-    else            { num.textContent = i; }
-  }
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function validateStep(step) {
-  let valid = true;
-  if (step === 1) {
-    const f = document.getElementById('field-name');
-    if (!document.getElementById('name').value.trim()) {
-      f.classList.add('has-error'); valid = false;
-    } else { f.classList.remove('has-error'); }
-  }
-  if (step === 2) {
-    const f = document.getElementById('field-events');
-    const checked = document.querySelectorAll('#step2 .pill-group input:checked');
-    if (checked.length === 0) {
-      f.classList.add('has-error'); valid = false;
-    } else { f.classList.remove('has-error'); }
-  }
-  return valid;
-}
-
-function toggleOthers(checkId, inputId) {
-  const cb  = document.getElementById(checkId);
-  const inp = document.getElementById(inputId);
-  if (cb.checked) { inp.classList.add('visible'); inp.focus(); }
-  else            { inp.classList.remove('visible'); inp.value = ''; }
-}
-
-let slotCount = 0;
-function addSlot(removable = true) {
-  slotCount++;
-  const id = 'slot-' + slotCount;
-  const div = document.createElement('div');
-  div.className = 'avail-row';
-  div.id = id;
-  div.innerHTML = `
-    <select class="day"><option>Saturday</option><option>Sunday</option></select>
-    <input type="time" class="start">
-    <input type="time" class="end">
-    ${removable ? `<button class="remove-btn" onclick="removeSlot('${id}')">✕</button>` : '<div></div>'}
-  `;
-  document.getElementById('slots').appendChild(div);
-}
-
-function removeSlot(id) {
-  const el = document.getElementById(id);
-  if (el) el.remove();
-}
-
-function radio(name) {
+function getRadio(name){
   const el = document.querySelector(`input[name="${name}"]:checked`);
   return el ? el.value : '';
 }
 
-function checks(groupId) {
-  return Array.from(document.querySelectorAll(`#${groupId} input[type=checkbox]:checked`))
-    .map(cb => cb.value).filter(Boolean);
+function validateStep(step){
+  let valid = true;
+
+  function mark(id, ok){
+    const f = document.getElementById(id);
+    if(!ok){ f.classList.add('has-error'); valid=false; }
+    else f.classList.remove('has-error');
+  }
+
+  if(step===1){
+    mark('field-name', document.getElementById('name').value.trim());
+    mark('field-location', getRadio('location'));
+    mark('field-status', getRadio('status'));
+  }
+
+  if(step===2){
+    const checked = document.querySelectorAll('#step2 input:checked').length;
+    mark('field-events', checked>0);
+  }
+
+  if(step===3){
+    mark('field-commute', getRadio('commute'));
+    mark('field-budget', getRadio('budget'));
+  }
+
+  return valid;
 }
 
-function submitForm() {
-  const rows = document.querySelectorAll('#slots .avail-row');
-  const availability = [];
-  rows.forEach(r => {
-    const day = r.querySelector('.day').value;
-    const s   = r.querySelector('.start').value;
-    const e   = r.querySelector('.end').value;
-    if (s && e) availability.push(`${day} ${s}–${e}`);
-  });
+function goToStep(n){
+  const current = document.querySelector('.step.active').id.replace('step','');
+  if(n>current && !validateStep(current)) return;
 
-  let eventInterests = Array.from(
-    document.querySelectorAll('#step2 .pill-group input[type=checkbox]:checked')
-  ).map(cb => cb.id === 'othersEventCheck'
-    ? (document.getElementById('othersEventInput').value.trim()
-        ? 'Others: ' + document.getElementById('othersEventInput').value.trim()
-        : 'Others')
-    : cb.value
-  );
+  document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
+  document.getElementById('step'+n).classList.add('active');
+}
 
-  let comfortHelpers = Array.from(
-    document.querySelectorAll('#comfortPills input[type=checkbox]:checked')
-  ).map(cb => cb.id === 'othersSafetyCheck'
-    ? (document.getElementById('othersSafetyInput').value.trim()
-        ? 'Other: ' + document.getElementById('othersSafetyInput').value.trim()
-        : 'Other')
-    : cb.value
-  );
-
-  const data = {
-    name:               document.getElementById('name').value.trim(),
-    location:           radio('location'),
-    status:             radio('status'),
-    event_interest:     eventInterests.join(', '),
-    commute_ease:       radio('commute'),
-    easy_areas:         document.getElementById('easyAreas').value,
-    attendance_helpers: checks('helpersPills').join(', '),
-    availability:       availability.join(', ') || 'Not specified',
-    budget:             radio('budget'),
-    has_concerns:       radio('hasConcerns'),
-    comfort_helpers:    comfortHelpers.join(', '),
-    motivation:         document.getElementById('motivation').value,
-    notes:              document.getElementById('notes').value
-  };
-
-  fetch(WEB_APP_URL, { method: 'POST', body: JSON.stringify(data) })
-    .finally(() => {
-      document.getElementById('mainCard').style.display = 'none';
-      document.getElementById('thankyou').style.display = 'block';
-    });
+function submitForm(){
+  alert('Submitted (placeholder)');
 }
 </script>
+
 </body>
 </html>
