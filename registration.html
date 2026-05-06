@@ -109,7 +109,51 @@
         }
 
         .gold-glow { border: 8px solid #ffd700 !important; }
+/* Mobile Responsive Adjustments */
+@media screen and (max-width: 600px) {
+    /* Shrink the landing page card slightly */
+    .card { 
+        padding: 25px; 
+        width: 90%; 
+    }
+    
+    .logo-text { font-size: 32px; }
 
+    /* Adjust the ticket to stack vertically or shrink */
+    #ticket-container { width: 95vw; }
+
+    .ticket { 
+        height: auto; 
+        flex-direction: column; 
+        min-height: 500px;
+    }
+
+    .ticket-content { 
+        width: 100%; 
+        padding: 30px; 
+        box-sizing: border-box;
+    }
+
+    /* Shrink the font sizes for mobile */
+    .ticket-content h2 { font-size: 24px !important; }
+    #display-name { font-size: 24px !important; }
+    
+    .details-grid { 
+        grid-template-columns: 1fr; /* Stack details in one column */
+        gap: 10px; 
+    }
+
+    .member-img {
+        width: 100%;
+        height: 40%; /* Move image to the top or bottom half */
+        position: relative;
+        right: 0;
+    }
+
+    .fade-overlay {
+        background: linear-gradient(to top, var(--m-color) 60%, transparent 100%);
+    }
+}
         @media print {
             body { background: white; }
             #ticket-container { display: block; width: 800px; }
