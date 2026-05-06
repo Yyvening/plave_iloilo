@@ -34,7 +34,6 @@
             border: 2px dashed #ffb3c1; display: flex; justify-content: space-around;
             font-family: 'Fredoka', sans-serif; font-size: 13px; color: #ff8fab;
         }
-        .info-item b { display: block; color: #ffb3c1; font-size: 10px; text-transform: uppercase; }
 
         .name-row { display: flex; gap: 10px; margin-top: 10px; }
 
@@ -63,73 +62,51 @@
         }
 
         .member-img {
-            position: absolute; inset: 0; width: 100%; height: 100%;
-            background-size: cover; background-position: center 15%; z-index: 1;
+            position: absolute; inset: 0; width: 100%; height: 65%; /* Constrained height on mobile */
+            background-size: cover; background-position: center top; z-index: 1;
         }
 
         .fade-overlay {
             position: absolute; inset: 0; z-index: 2;
-            background: linear-gradient(to top, var(--m-color) 0%, var(--m-color) 25%, transparent 45%);
+            background: linear-gradient(to top, var(--m-color) 35%, transparent 60%);
         }
 
-        /* Text Section Gradient for Mobile */
         .ticket-content {
-            position: relative; z-index: 3; padding: 35px; 
+            position: relative; z-index: 3; padding: 30px; 
             height: 100%; display: flex; flex-direction: column;
-            justify-content: flex-end; box-sizing: border-box;
-            /* The gradient on the whole text section */
-            background: linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0) 40%, #ffffff 85%, #000000 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            justify-content: flex-end; color: #444; box-sizing: border-box;
         }
 
-        /* Ensure grid items have enough space */
-        .details-grid { 
-            display: grid; grid-template-columns: 1fr 1fr; 
-            gap: 20px; /* Increased gap to stop sticking */
-            margin: 25px 0; 
-        }
+        .details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0; }
 
         /* --- DESKTOP HORIZONTAL --- */
         @media screen and (min-width: 800px) {
             #ticket-container { max-width: 800px; }
             .ticket { aspect-ratio: 800/380; flex-direction: row; }
-            .member-img { width: 70%; left: 30%; background-position: right center; }
+            .member-img { width: 65%; height: 100%; left: 35%; background-position: center center; }
             .fade-overlay {
-                background: linear-gradient(to right, var(--m-color) 25%, var(--m-color) 35%, transparent 65%);
+                background: linear-gradient(to right, var(--m-color) 35%, transparent 65%);
             }
-            .ticket-content { 
-                width: 50%; height: 100%; 
-                justify-content: space-between; padding: 45px 50px; 
-                background: none; /* Remove text-mask gradient on desktop */
-                -webkit-background-clip: initial;
-                -webkit-text-fill-color: #444; /* Clean solid text for desktop */
-            }
-            .details-grid { margin: 15px 0; gap: 15px; }
+            .ticket-content { width: 50%; justify-content: space-between; padding: 40px; }
         }
 
-        /* Group Mode UI */
-        .group-mode .fade-overlay { 
-            background: linear-gradient(to top, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 25%, transparent 45%);
-        }
+        /* Group Mode UI - Darker text for visibility */
+        .group-mode .ticket-content { color: #222; }
+        .group-mode .fade-overlay { background: linear-gradient(to top, rgba(255,255,255,0.95) 40%, transparent 70%); }
         @media screen and (min-width: 800px) {
-            .group-mode .fade-overlay {
-                background: linear-gradient(to right, rgba(255,255,255,0.95) 25%, rgba(255,255,255,0.85) 35%, transparent 65%);
-            }
+            .group-mode .fade-overlay { background: linear-gradient(to right, rgba(255,255,255,0.95) 35%, transparent 70%); }
         }
 
-        .detail-item { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.8; font-weight: 600; }
-        .detail-value { font-size: 14px; font-weight: 600; margin-top: 2px; }
+        .detail-item { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.7; font-weight: 600; }
+        .detail-value { font-size: 13px; font-weight: 600; }
 
         .member-badge {
-            background: rgba(255,255,255,0.8); padding: 6px 18px; border-radius: 50px;
-            font-size: 12px; font-weight: 600; backdrop-filter: blur(5px);
-            display: inline-block; border: 1px solid rgba(255,255,255,0.4);
-            margin-bottom: 10px; color: #ff8fab;
-            -webkit-text-fill-color: #ff8fab; /* Override the section mask for the badge */
+            background: var(--m-color); padding: 6px 18px; border-radius: 50px;
+            font-size: 12px; font-weight: 600; display: inline-block;
+            margin-bottom: 10px; color: #444; border: 1px solid rgba(0,0,0,0.05);
         }
 
-        #display-name { font-size: 38px; font-weight: 800; font-family: 'Fredoka'; line-height: 1; }
+        #display-name { font-size: 38px; font-weight: 800; font-family: 'Fredoka'; line-height: 1; color: var(--m-dark); }
     </style>
 </head>
 <body>
@@ -139,9 +116,9 @@
         <div class="sub-text">Anniversary Event</div>
         
         <div class="event-info-box">
-            <div class="info-item"><b>Where</b>Asterum Park</div>
-            <div class="info-item"><b>When</b>June 20, 2026</div>
-            <div class="info-item"><b>Time</b>4:00 PM</div>
+            <div class="info-item">Asterum Park</div>
+            <div class="info-item">June 20, 2026</div>
+            <div class="info-item">4:00 PM</div>
         </div>
 
         <div class="name-row">
@@ -154,7 +131,7 @@
 
     <div id="ticket-container">
         <div id="capture-area">
-            <div id="ticket-body" class="ticket" style="--m-color: #ffffff;">
+            <div id="ticket-body" class="ticket" style="--m-color: #ffffff; --m-dark: #444;">
                 <div id="member-photo" class="member-img"></div>
                 <div id="overlay" class="fade-overlay"></div>
                 
@@ -181,18 +158,18 @@
 
         <div class="btn-group">
             <button class="btn" onclick="downloadImage()">Download PNG 📸</button>
-            <button class="btn" onclick="location.reload()" style="background: transparent; color: #ff8fab; border: 2px solid #ffb3c1; margin-top: 15px; font-size: 16px;">Try Again</button>
+            <button class="btn" onclick="location.reload()" style="background: transparent; color: #ff8fab; border: 2px solid #ffb3c1; margin-top: 15px;">Try Again</button>
         </div>
     </div>
 
     <script>
         const gachaPool = [
-            { name: "Yejun", color: "#e1f5fe", img: "https://lh3.googleusercontent.com/u/0/d/1f_5pCcNu6yWJIZoanqRMGBoVPJY33Cke" },
-            { name: "Noah", color: "#f3e5f5", img: "https://lh3.googleusercontent.com/u/0/d/136FYbU-u4U0Cw8AJQKYUfzpzNQrMDKhW" },
-            { name: "Bamby", color: "#fce4ec", img: "https://lh3.googleusercontent.com/u/0/d/1X9VM3HhF8cYvU6A6k0jXGEEaK6JpGZQ7" },
-            { name: "Eunho", color: "#ffebee", img: "https://lh3.googleusercontent.com/u/0/d/1IcBszLi_zV2Hrw2BxxaGqFn4rjJBulGa" },
-            { name: "Hamin", color: "#f1f8e9", img: "https://lh3.googleusercontent.com/u/0/d/1K21sm_dz9BgkXesEJEuPZn8MyQ0Tjr9K" },
-            { name: "PLAVE", color: "#ffffff", img: "https://lh3.googleusercontent.com/u/0/d/1pVg2CfjS-7elfpIfvyCT_oV_QaYPZDy9" }
+            { name: "Yejun", color: "#96CCFF", dark: "#2196F3", img: "https://lh3.googleusercontent.com/u/0/d/1f_5pCcNu6yWJIZoanqRMGBoVPJY33Cke" },
+            { name: "Noah", color: "#DFABFF", dark: "#9C27B0", img: "https://lh3.googleusercontent.com/u/0/d/136FYbU-u4U0Cw8AJQKYUfzpzNQrMDKhW" },
+            { name: "Bamby", color: "#FFB8D3", dark: "#E91E63", img: "https://lh3.googleusercontent.com/u/0/d/1X9VM3HhF8cYvU6A6k0jXGEEaK6JpGZQ7" },
+            { name: "Eunho", color: "#FFBABA", dark: "#F44336", img: "https://lh3.googleusercontent.com/u/0/d/1IcBszLi_zV2Hrw2BxxaGqFn4rjJBulGa" },
+            { name: "Hamin", color: "#ABFFBD", dark: "#4CAF50", img: "https://lh3.googleusercontent.com/u/0/d/1K21sm_dz9BgkXesEJEuPZn8MyQ0Tjr9K" },
+            { name: "PLAVE (Group)", color: "#ffffff", dark: "#444444", img: "https://lh3.googleusercontent.com/u/0/d/1pVg2CfjS-7elfpIfvyCT_oV_QaYPZDy9" }
         ];
 
         function pullGacha() {
@@ -206,11 +183,12 @@
             const tag = document.getElementById('member-tag');
             
             ticket.style.setProperty('--m-color', result.color);
+            ticket.style.setProperty('--m-dark', result.dark);
             photo.style.backgroundImage = `url('${result.img}')`;
             
             if (result.name === "PLAVE (Group)") {
                 ticket.classList.add('group-mode');
-                tag.innerText = "✨ PLAVE ✨";
+                tag.innerText = "✨ FULL GROUP ✨";
             } else {
                 ticket.classList.remove('group-mode');
                 tag.innerText = "✦ " + result.name.toUpperCase();
@@ -225,15 +203,9 @@
 
         function downloadImage() {
             const container = document.getElementById('capture-area');
-            const firstName = document.getElementById('firstName').value;
-
-            html2canvas(container, {
-                useCORS: true,
-                backgroundColor: null,
-                scale: 3 
-            }).then(canvas => {
+            html2canvas(container, { useCORS: true, scale: 3 }).then(canvas => {
                 const link = document.createElement('a');
-                link.download = `PLLIcnic_Pass_${firstName}.png`;
+                link.download = `PLLIcnic_Pass.png`;
                 link.href = canvas.toDataURL("image/png");
                 link.click();
             });
