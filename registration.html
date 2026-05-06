@@ -3,69 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PLLI Day 🎀</title>
+    <title>PLLI Day: 2026 Anniversary ✨</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@300;400;600&display=swap');
 
         body { 
             font-family: 'Poppins', sans-serif; 
-            background: linear-gradient(135deg, #fce4ec, #e1f5fe, #f3e5f5);
+            background: #0a0a0c;
+            color: #fff;
             min-height: 100vh;
             display: flex; justify-content: center; align-items: center;
             margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* Ambient Background Glow */
+        body::before {
+            content: ''; position: absolute; width: 100%; height: 100%;
+            background: radial-gradient(circle at 20% 30%, #3a1c71 0%, transparent 40%),
+                        radial-gradient(circle at 80% 70%, #d76d77 0%, transparent 40%);
+            opacity: 0.5; z-index: -1;
         }
 
         .card { 
-            background: rgba(255, 255, 255, 0.95); 
-            padding: 40px; border-radius: 30px; 
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); 
-            width: 100%; max-width: 400px; text-align: center;
+            background: rgba(20, 20, 25, 0.85); 
+            padding: 45px; border-radius: 40px; 
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5); 
+            width: 100%; max-width: 480px; text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
         }
+
+        .logo-text { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 32px; letter-spacing: -1px; margin-bottom: 5px; background: linear-gradient(to right, #fff, #b3e5fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .sub-text { font-size: 14px; color: #b0bec5; margin-bottom: 30px; text-transform: uppercase; letter-spacing: 2px; }
 
         input { 
-            width: 100%; padding: 15px; margin: 12px 0; 
-            border: 2px solid #eee; border-radius: 50px; 
-            box-sizing: border-box; outline: none;
+            width: 100%; padding: 18px; margin: 10px 0; 
+            border: 1px solid rgba(255,255,255,0.2); border-radius: 15px; 
+            box-sizing: border-box; outline: none; background: rgba(255,255,255,0.05); color: #fff;
+            transition: 0.3s;
         }
+        input:focus { border-color: #b3e5fc; background: rgba(255,255,255,0.1); }
 
         .btn { 
-            width: 100%; padding: 15px; 
-            background: #ff80ab; color: white; border: none; 
-            border-radius: 50px; cursor: pointer; font-size: 18px; 
-            font-weight: bold; text-transform: uppercase; margin-top: 10px;
+            width: 100%; padding: 18px; 
+            background: #fff; color: #000; border: none; 
+            border-radius: 15px; cursor: pointer; font-size: 16px; 
+            font-weight: 700; text-transform: uppercase; margin-top: 20px;
+            transition: 0.3s;
         }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(255,255,255,0.1); }
 
         /* Ticket Styles */
-        #ticket-container { display: none; }
+        #ticket-container { display: none; max-width: 600px; }
         .ticket {
-            width: 100%; height: 250px;
-            border-radius: 20px;
-            padding: 25px;
+            width: 100%; height: 280px;
+            border-radius: 25px;
             box-sizing: border-box;
             text-align: left;
             position: relative;
-            transition: all 0.5s ease;
-            border: 4px double rgba(255,255,255,0.3);
-        }
-        
-        .member-badge {
-            display: inline-block;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            background: rgba(255,255,255,0.2);
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.2);
+            display: flex;
         }
 
-        .ticket h1 { margin: 0; font-size: 28px; font-family: 'Montserrat', sans-serif; }
-        .info-label { font-size: 10px; text-transform: uppercase; opacity: 0.8; margin-top: 30px; }
-        .info-value { font-size: 20px; font-weight: bold; }
+        /* The Member Image Side */
+        .member-img {
+            position: absolute; right: 0; top: 0;
+            width: 65%; height: 100%;
+            background-size: cover; background-position: center;
+            z-index: 1;
+        }
+
+        /* The Fade Overlay */
+        .fade-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(to right, var(--m-color) 35%, transparent 85%);
+            z-index: 2;
+        }
+
+        .ticket-content {
+            position: relative; z-index: 3;
+            padding: 35px; width: 50%;
+            display: flex; flex-direction: column; justify-content: space-between;
+        }
+
+        .member-badge {
+            background: rgba(255,255,255,0.15); padding: 6px 12px;
+            border-radius: 50px; font-size: 11px; font-weight: 600;
+            backdrop-filter: blur(5px); display: inline-block; width: fit-content;
+        }
 
         @media print {
-            body * { visibility: hidden; }
-            #ticket-container, #ticket-container * { visibility: visible; }
-            #ticket-container { position: absolute; left: 0; top: 0; width: 100%; }
+            body { background: white; }
+            .card { box-shadow: none; border: none; }
+            #ticket-container { display: block; width: 100%; }
             .btn { display: none; }
         }
     </style>
@@ -73,56 +105,63 @@
 <body>
 
     <div id="form-container" class="card">
-        <h2 style="color: #ff80ab;">MEMBER GACHA ✨</h2>
-        <p>Enter your name to pull your bias!</p>
-        <input type="text" id="userName" placeholder="Attendee Name" required>
-        <button class="btn" onclick="pullGacha()">Summon Ticket ♡</button>
+        <div class="logo-text">PLLI DAY 2026</div>
+        <div class="sub-text">Official Fan Anniversary</div>
+        <p style="font-size: 13px; opacity: 0.7;">Enter your name to claim your random 1st Anniversary member pass.</p>
+        <input type="text" id="userName" placeholder="PLLI Name" required>
+        <button class="btn" onclick="pullGacha()">Claim Your Pass</button>
     </div>
 
     <div id="ticket-container" class="card">
-        <div id="ticket-body" class="ticket">
-            <div id="member-tag" class="member-badge"></div>
-            <h1 id="ticket-title">VIP PASS</h1>
-            <div class="info-label">Attendee</div>
-            <div id="display-name" class="info-value"></div>
-            <div style="margin-top: 15px;">
-                <div class="info-label">Ticket ID</div>
-                <div id="ticket-id" style="font-size: 12px;"></div>
+        <div id="ticket-body" class="ticket" style="--m-color: #212121;">
+            <div id="member-photo" class="member-img"></div>
+            <div class="fade-overlay"></div>
+            
+            <div class="ticket-content">
+                <div>
+                    <div id="member-tag" class="member-badge">✦ MEMBER</div>
+                    <h2 style="margin: 15px 0 5px 0; font-family: 'Montserrat';">ANNIVERSARY PASS</h2>
+                    <div style="font-size: 10px; opacity: 0.6;">EVENT ID: <span id="ticket-id"></span></div>
+                </div>
+                <div>
+                    <div style="font-size: 10px; text-transform: uppercase; opacity: 0.7;">Authorized PLLI</div>
+                    <div id="display-name" style="font-size: 22px; font-weight: 800;"></div>
+                </div>
             </div>
         </div>
-        <button id="dl-btn" class="btn" onclick="window.print()" style="margin-top: 20px;">Download PDF</button>
+        <button id="dl-btn" class="btn" onclick="window.print()">Download Pass (PDF)</button>
     </div>
 
     <script>
         const gachaPool = [
-            { name: "Yejun", color: "#00b0ff", text: "white" }, // Blue
-            { name: "Noah", color: "#9c27b0", text: "white" },  // Purple
-            { name: "Bamby", color: "#f06292", text: "white" }, // Pink
-            { name: "Eunho", color: "#e53935", text: "white" }, // Red
-            { name: "Hamin", color: "#212121", text: "white" }  // Black
+            { name: "Yejun", color: "#00b0ff", img: "https://lh3.googleusercontent.com/u/0/d/14sLTCqSuNLolAuBav8ZQzaAyEzvYKowk" },
+            { name: "Noah", color: "#9c27b0", img: "https://lh3.googleusercontent.com/u/0/d/1bN_jEuWfTTAP8_wh7lIq2Q4h_qIAITEV" },
+            { name: "Bamby", color: "#f06292", img: "https://lh3.googleusercontent.com/u/0/d/1SPsMIsrSgRuHSfQYUjpps7WlTjPXScpa" },
+            { name: "Eunho", color: "#e53935", img: "https://lh3.googleusercontent.com/u/0/d/1XE-9iK_sJCz3qXSs-3hLIz72BfWd-0cQ" },
+            { name: "Hamin", color: "#121212", img: "https://lh3.googleusercontent.com/u/0/d/10DQpAQ_tpimS3i9kgzUrClLAjZrt2beR" }
         ];
 
         function pullGacha() {
             const name = document.getElementById('userName').value;
-            if (!name) return alert("Please enter your name!");
+            if (!name) return alert("Please enter your PLLI name!");
 
-            // Randomize selection
             const result = gachaPool[Math.floor(Math.random() * gachaPool.length)];
             
-            // Apply Gacha results
             const ticket = document.getElementById('ticket-body');
-            const memberTag = document.getElementById('member-tag');
+            const photo = document.getElementById('member-photo');
             
-            ticket.style.backgroundColor = result.color;
-            ticket.style.color = result.text;
-            memberTag.innerText = "✦ " + result.name.toUpperCase();
+            // Apply Member Style
+            ticket.style.setProperty('--m-color', result.color);
+            photo.style.backgroundImage = `url('${result.img}')`;
+            document.getElementById('member-tag').innerText = "✦ " + result.name.toUpperCase();
             document.getElementById('dl-btn').style.background = result.color;
+            if (result.name === "Yejun" || result.name === "Bamby") {
+                document.getElementById('dl-btn').style.color = "white";
+            }
 
-            // Fill details
             document.getElementById('display-name').innerText = name.toUpperCase();
-            document.getElementById('ticket-id').innerText = 'GT-' + Math.floor(1000 + Math.random() * 9000);
+            document.getElementById('ticket-id').innerText = 'PLLI-' + Math.floor(10000 + Math.random() * 90000);
 
-            // UI Swap
             document.getElementById('form-container').style.display = 'none';
             document.getElementById('ticket-container').style.display = 'block';
         }
