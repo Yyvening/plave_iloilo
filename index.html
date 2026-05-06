@@ -1,4 +1,109 @@
-<h1>PLAVE Iloilo</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PLAVE Iloilo</title>
 
-<a href="./eventssurvey.html">Events Survey</a>
-<a href="./registration.html">Registration</a>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  body {
+    margin: 0;
+    font-family: 'DM Sans', sans-serif;
+    background: linear-gradient(135deg, #f7f6fc, #eef2ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    color: #1e1b2e;
+  }
+
+  .container {
+    text-align: center;
+    max-width: 520px;
+    width: 90%;
+  }
+
+  h1 {
+    font-size: 34px;
+    margin-bottom: 10px;
+    background: linear-gradient(135deg, #5b8dee, #9f7aea, #f472b6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  p {
+    color: #6b6b7a;
+    font-size: 14px;
+    margin-bottom: 30px;
+  }
+
+  .card-grid {
+    display: grid;
+    gap: 14px;
+  }
+
+  .card {
+    background: white;
+    padding: 18px 20px;
+    border-radius: 16px;
+    text-decoration: none;
+    color: #1e1b2e;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 10px 25px rgba(90,60,120,0.08);
+    transition: all 0.2s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 30px rgba(90,60,120,0.15);
+  }
+
+  .tag {
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: #eef2ff;
+    color: #5b8dee;
+    font-weight: 500;
+  }
+
+  .footer {
+    margin-top: 28px;
+    font-size: 12px;
+    color: #9a9aa8;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>PLAVE Iloilo</h1>
+  <p>Choose what you want to access 👇</p>
+
+  <div class="card-grid">
+
+    <a class="card" href="./eventssurvey.html">
+      Events Survey
+      <span class="tag">Form</span>
+    </a>
+
+    <a class="card" href="./registration.html">
+      Registration
+      <span class="tag">Sign Up</span>
+    </a>
+
+  </div>
+
+  <div class="footer">
+    made with 💜 for PLLIs in Iloilo
+  </div>
+</div>
+
+</body>
+</html>
