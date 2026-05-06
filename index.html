@@ -2,99 +2,179 @@
 <html>
 <head>
   <title>PLAVE Iloilo Survey</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
   <style>
+    :root {
+      --bg: #f5f7ff;
+      --card: rgba(255,255,255,0.75);
+      --text: #1f2937;
+      --muted: #6b7280;
+      --primary: #6d7cff;
+      --primary-soft: rgba(109,124,255,0.15);
+      --border: rgba(0,0,0,0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      background: #f7f9fc;
-      padding: 40px;
-      color: #1a1a1a;
+      margin: 0;
+      padding: 40px 16px;
+      background: radial-gradient(circle at top, #eef1ff, var(--bg));
+      color: var(--text);
     }
 
     .card {
-      max-width: 600px;
+      max-width: 640px;
       margin: auto;
-      background: white;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+      background: var(--card);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.05);
     }
 
-    h2 {
-      margin-bottom: 5px;
+    h1 {
+      font-size: 22px;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    label {
+      font-size: 13px;
+      font-weight: 500;
+      display: block;
+      margin-top: 18px;
+      margin-bottom: 6px;
     }
 
     .desc {
       font-size: 12px;
-      color: #6b7280;
-      margin-bottom: 15px;
+      color: var(--muted);
+      margin-bottom: 8px;
     }
 
-    input, select, textarea {
+    input, select {
       width: 100%;
-      padding: 10px;
-      margin-bottom: 15px;
-      border-radius: 8px;
-      border: 1px solid #e5e7eb;
+      padding: 11px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: white;
+      outline: none;
+      transition: 0.2s;
+    }
+
+    input:focus, select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px var(--primary-soft);
     }
 
     .row {
-      display: flex;
-      gap: 10px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 10px;
     }
 
     button {
-      padding: 10px 15px;
+      width: 100%;
+      padding: 12px;
+      border-radius: 14px;
       border: none;
-      border-radius: 8px;
-      background: #4f46e5;
-      color: white;
       cursor: pointer;
+      font-weight: 500;
+      transition: 0.2s;
     }
 
-    .add-btn {
+    .primary {
+      background: var(--primary);
+      color: white;
+      margin-top: 20px;
+      box-shadow: 0 10px 20px rgba(109,124,255,0.25);
+    }
+
+    .primary:hover {
+      transform: translateY(-1px);
+    }
+
+    .ghost {
       background: transparent;
-      color: #4f46e5;
-      border: 1px dashed #4f46e5;
+      border: 1px dashed var(--primary);
+      color: var(--primary);
+      margin-top: 10px;
+    }
+
+    .section {
+      margin-top: 10px;
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 22px 0;
+    }
+
+    @media (max-width: 600px) {
+      .row {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 
 <body>
-  <div class="card">
-    <h2>PLAVE Iloilo Survey 💙</h2>
-    <p class="desc">Help us plan better fan events!</p>
 
-    <label>Name</label>
-    <input id="name" placeholder="Krystal L." />
+<div class="card">
 
-    <label>Location</label>
-    <select id="location">
-      <option>Iloilo City</option>
-      <option>Iloilo Province</option>
-      <option>Outside Iloilo (can travel)</option>
-      <option>Outside Iloilo (cannot)</option>
-    </select>
+  <h1>PLAVE Iloilo Survey 💙</h1>
+  <div class="subtitle">Help us plan soft, meaningful fan events for PLLIs in Iloilo</div>
 
-    <label>Availability</label>
-    <p class="desc">Weekends only for now</p>
+  <label>Name</label>
+  <div class="desc">First Name + Last Initial (e.g. Krystal L.)</div>
+  <input id="name" placeholder="Your name" />
 
-    <div id="slots">
-      <div class="row">
-        <select class="day">
-          <option>Saturday</option>
-          <option>Sunday</option>
-        </select>
-        <input type="time" class="start">
-        <input type="time" class="end">
-      </div>
+  <label>Location</label>
+  <div class="desc">Helps us understand travel needs for Iloilo City events</div>
+  <select id="location">
+    <option>Iloilo City</option>
+    <option>Iloilo Province</option>
+    <option>Outside Iloilo (can travel)</option>
+    <option>Outside Iloilo (cannot attend)</option>
+  </select>
+
+  <div class="divider"></div>
+
+  <label>Availability</label>
+  <div class="desc">We usually plan events on weekends (Saturday–Sunday)</div>
+
+  <div id="slots">
+    <div class="row">
+      <select class="day">
+        <option>Saturday</option>
+        <option>Sunday</option>
+      </select>
+      <input type="time" class="start">
+      <input type="time" class="end">
     </div>
-
-    <button class="add-btn" onclick="addSlot()">+ Add another</button>
-
-    <br><br>
-
-    <button onclick="submitForm()">Submit</button>
   </div>
+
+  <button class="ghost" onclick="addSlot()">+ Add another time slot</button>
+
+  <button class="primary" onclick="submitForm()">Submit</button>
+
+</div>
 
 <script>
 const WEB_APP_URL = "PASTE_YOUR_WEB_APP_URL_HERE";
@@ -118,14 +198,14 @@ function addSlot() {
 }
 
 function submitForm() {
-  const slots = document.querySelectorAll("#slots .row");
+  const rows = document.querySelectorAll("#slots .row");
 
   let availability = [];
 
-  slots.forEach(row => {
-    const day = row.querySelector(".day").value;
-    const start = row.querySelector(".start").value;
-    const end = row.querySelector(".end").value;
+  rows.forEach(r => {
+    const day = r.querySelector(".day").value;
+    const start = r.querySelector(".start").value;
+    const end = r.querySelector(".end").value;
 
     if (start && end) {
       availability.push(`${day} ${start}-${end}`);
@@ -135,25 +215,15 @@ function submitForm() {
   const data = {
     name: document.getElementById("name").value,
     location: document.getElementById("location").value,
-    status: "",
-    event_interest: [],
-    commute: "",
-    areas: "",
-    support: [],
-    availability: availability.join(", "),
-    budget: "",
-    safety: "",
-    comfort: [],
-    motivation: "",
-    notes: ""
+    availability: availability.join(", ")
   };
 
   fetch(WEB_APP_URL, {
     method: "POST",
     body: JSON.stringify(data)
-  })
-  .then(res => res.json())
-  .then(() => alert("Submitted 💙"));
+  }).then(() => {
+    alert("Submitted 💙");
+  });
 }
 </script>
 
