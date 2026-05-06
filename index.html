@@ -400,8 +400,7 @@
         <div class="pill-group">
           <label class="pill"><input type="radio" name="location" value="Iloilo City"> Iloilo City</label>
           <label class="pill"><input type="radio" name="location" value="Iloilo Province"> Within Iloilo Province (outside the city)</label>
-          <label class="pill"><input type="radio" name="location" value="Outside Iloilo (can travel)"> Outside Iloilo — willing to travel</label>
-          <label class="pill"><input type="radio" name="location" value="Outside Iloilo (unlikely)"> Outside Iloilo — unlikely to attend</label>
+          <label class="pill"><input type="radio" name="location" value="Outside Iloilo (can travel)"> Outside Iloilo </label>
         </div>
       </div>
 
@@ -429,12 +428,10 @@
         <span class="q">Which events would you realistically attend?<span style="color:var(--red);font-size:11px;font-weight:400;">required</span></span>
         <span class="hint">Select all that you would genuinely consider joining.</span>
         <div class="pill-group">
-          <label class="pill"><input type="checkbox" value="Birthday cupsleeve events"> Birthday cupsleeve events</label>
+          <label class="pill"><input type="checkbox" value="Birthday cupsleeve events"> Birthday events</label>
           <label class="pill"><input type="checkbox" value="PLAVE / PLLI anniversary events"> Anniversary events</label>
           <label class="pill"><input type="checkbox" value="Online concert viewing"> Online concert viewing</label>
-          <label class="pill"><input type="checkbox" value="Small fan meet / bonding"> Small fan meet / bonding</label>
-          <label class="pill"><input type="checkbox" value="Photocard trading"> Photocard trading</label>
-          <label class="pill"><input type="checkbox" value="Games / mini activities"> Games / mini activities</label>
+          <label class="pill"><input type="checkbox" value="Small fan meet / bonding"> Small fan gathering</label>
           <span class="others-wrap">
             <label class="pill"><input type="checkbox" id="othersEventCheck" onchange="toggleOthers('othersEventCheck','othersEventInput')"> Others</label>
             <input type="text" id="othersEventInput" class="others-text-input" placeholder="Please specify…">
@@ -461,13 +458,13 @@
         <div class="pill-group">
           <label class="pill"><input type="radio" name="commute" value="Easy, no issues"> Easy, no issues</label>
           <label class="pill"><input type="radio" name="commute" value="Depends on location"> Depends on the exact location</label>
-          <label class="pill"><input type="radio" name="commute" value="Difficult"> Difficult — transport is a problem</label>
+          <label class="pill"><input type="radio" name="commute" value="Difficult"> Difficult — commute is a problem</label>
           <label class="pill"><input type="radio" name="commute" value="Not familiar with commuting"> Not familiar with commuting</label>
         </div>
       </div>
 
       <div class="field">
-        <span class="q">Which areas in Iloilo City are easiest for you to go to?<span style="color:var(--red);font-size:11px;font-weight:400;">required</span></span>
+        <span class="q">Which areas in Iloilo City are easiest for you to go to?<span style="color:var(--muted);font-weight:400;">(optional)</span></span>
         <span class="hint">Example: SM City, Festive Walk, Jaro, etc.</span>
         <input type="text" id="easyAreas" placeholder="e.g. SM City, Festive Walk">
       </div>
