@@ -36,6 +36,8 @@
         }
         .info-item b { display: block; color: #ffb3c1; font-size: 10px; text-transform: uppercase; }
 
+        .name-row { display: flex; gap: 10px; margin-top: 10px; }
+
         input { 
             width: 100%; padding: 15px; margin-top: 10px; 
             border: 3px solid #ffe3ec; border-radius: 20px; 
@@ -58,7 +60,6 @@
             box-shadow: 0 30px 60px rgba(0,0,0,0.2); text-align: left;
         }
 
-        /* Image sizing */
         .member-img {
             position: absolute; right: 0; top: 0; width: 60%; height: 100%;
             background-size: cover; background-position: right center; z-index: 1;
@@ -115,10 +116,12 @@
             <div class="info-item"><b>Time</b>4:00 PM</div>
         </div>
 
-        <input type="text" id="fullName" placeholder="Full Name for Registration Purposes" required>
-        <input type="text" id="nickName" placeholder="Nickname for the pass ♡" required>
+        <div class="name-row">
+            <input type="text" id="firstName" placeholder="First Name" required>
+            <input type="text" id="lastName" placeholder="Last Name" required>
+        </div>
 
-        <button class="btn" onclick="pullGacha()">Check My Invitation 🎟️</button>
+        <button class="btn" onclick="pullGacha()">Register & Check Pass 🎟️</button>
     </div>
 
     <div id="ticket-container">
@@ -140,7 +143,7 @@
                 </div>
 
                 <div style="margin-top: auto; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 10px;">
-                    <div class="detail-item">Authorized</div>
+                    <div class="detail-item">Authorized PLLI</div>
                     <div id="display-name" style="font-size: 32px; font-weight: 800; font-family: 'Fredoka'; line-height: 1.1;"></div>
                 </div>
             </div>
@@ -160,11 +163,11 @@
         ];
 
         function pullGacha() {
-            const fullName = document.getElementById('fullName').value;
-            const nickName = document.getElementById('nickName').value;
-            if (!fullName || !nickName) return alert("Please fill in both fields! ♡");
+            const first = document.getElementById('firstName').value.trim();
+            const last = document.getElementById('lastName').value.trim();
+            
+            if (!first || !last) return alert("Please provide both First and Last names! ♡");
 
-            // Fair probability (1 in 6 chance for everyone)
             const result = gachaPool[Math.floor(Math.random() * gachaPool.length)];
 
             const ticket = document.getElementById('ticket-body');
@@ -182,7 +185,8 @@
                 tag.innerText = "✦ " + result.name.toUpperCase();
             }
             
-            document.getElementById('display-name').innerText = nickName.toUpperCase();
+            // Using only the First Name for the ticket display
+            document.getElementById('display-name').innerText = first.toUpperCase();
             document.getElementById('ticket-id').innerText = 'PLLI-' + Math.floor(1000 + Math.random() * 9000);
 
             document.getElementById('form-container').style.display = 'none';
