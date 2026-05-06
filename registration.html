@@ -32,8 +32,9 @@
         .event-info-box {
             background: #fffafa; border-radius: 20px; padding: 15px; margin-bottom: 25px;
             border: 2px dashed #ffb3c1; display: flex; justify-content: space-around;
-            font-family: 'Fredoka', sans-serif; font-size: 13px; color: #ff8fab;
+            font-family: 'Fredoka', sans-serif; font-size: 11px; color: #ff8fab;
         }
+        .info-item b { display: block; color: #ffb3c1; font-size: 9px; text-transform: uppercase; margin-bottom: 2px; }
 
         .name-row { display: flex; gap: 10px; margin-top: 10px; }
 
@@ -43,6 +44,7 @@
             box-sizing: border-box; outline: none; background: #fffafa; color: #ff8fab;
             font-size: 16px; font-family: 'Fredoka', sans-serif;
         }
+        input::placeholder { color: #ffc2d1; }
 
         .btn { 
             width: 100%; padding: 18px; background: #ff8fab; color: white; border: none; 
@@ -62,51 +64,50 @@
         }
 
         .member-img {
-            position: absolute; inset: 0; width: 100%; height: 65%; /* Constrained height on mobile */
-            background-size: cover; background-position: center top; z-index: 1;
+            position: absolute; inset: 0; width: 100%; height: 70%;
+            background-size: cover; background-position: center 10%; z-index: 1;
         }
 
         .fade-overlay {
             position: absolute; inset: 0; z-index: 2;
-            background: linear-gradient(to top, var(--m-color) 35%, transparent 60%);
+            background: linear-gradient(to top, var(--m-bg) 30%, transparent 55%);
         }
 
         .ticket-content {
-            position: relative; z-index: 3; padding: 30px; 
+            position: relative; z-index: 3; padding: 35px; 
             height: 100%; display: flex; flex-direction: column;
             justify-content: flex-end; color: #444; box-sizing: border-box;
         }
 
         .details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0; }
 
-        /* --- DESKTOP HORIZONTAL --- */
         @media screen and (min-width: 800px) {
             #ticket-container { max-width: 800px; }
             .ticket { aspect-ratio: 800/380; flex-direction: row; }
-            .member-img { width: 65%; height: 100%; left: 35%; background-position: center center; }
+            .member-img { width: 68%; height: 100%; left: 32%; background-position: center center; }
             .fade-overlay {
-                background: linear-gradient(to right, var(--m-color) 35%, transparent 65%);
+                background: linear-gradient(to right, var(--m-bg) 32%, transparent 65%);
             }
-            .ticket-content { width: 50%; justify-content: space-between; padding: 40px; }
+            .ticket-content { width: 50%; justify-content: space-between; padding: 45px; }
         }
 
-        /* Group Mode UI - Darker text for visibility */
-        .group-mode .ticket-content { color: #222; }
-        .group-mode .fade-overlay { background: linear-gradient(to top, rgba(255,255,255,0.95) 40%, transparent 70%); }
+        .group-mode .fade-overlay { background: linear-gradient(to top, rgba(255,255,255,0.95) 30%, transparent 60%); }
         @media screen and (min-width: 800px) {
-            .group-mode .fade-overlay { background: linear-gradient(to right, rgba(255,255,255,0.95) 35%, transparent 70%); }
+            .group-mode .fade-overlay { background: linear-gradient(to right, rgba(255,255,255,0.95) 32%, transparent 65%); }
         }
 
         .detail-item { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.7; font-weight: 600; }
         .detail-value { font-size: 13px; font-weight: 600; }
 
         .member-badge {
-            background: var(--m-color); padding: 6px 18px; border-radius: 50px;
+            background: rgba(255,255,255,0.4); padding: 6px 18px; border-radius: 50px;
             font-size: 12px; font-weight: 600; display: inline-block;
-            margin-bottom: 10px; color: #444; border: 1px solid rgba(0,0,0,0.05);
+            margin-bottom: 10px; color: var(--m-color); 
+            backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.3);
         }
 
-        #display-name { font-size: 38px; font-weight: 800; font-family: 'Fredoka'; line-height: 1; color: var(--m-dark); }
+        #ticket-id { color: var(--m-color); } 
+        #display-name { font-size: 38px; font-weight: 800; font-family: 'Fredoka'; line-height: 1; color: #444; }
     </style>
 </head>
 <body>
@@ -116,9 +117,9 @@
         <div class="sub-text">Anniversary Event</div>
         
         <div class="event-info-box">
-            <div class="info-item">Asterum Park</div>
-            <div class="info-item">June 20, 2026</div>
-            <div class="info-item">4:00 PM</div>
+            <div class="info-item"><b>Where</b>Asterum Park</div>
+            <div class="info-item"><b>When</b>June 20, 2026</div>
+            <div class="info-item"><b>Time</b>4:00 PM</div>
         </div>
 
         <div class="name-row">
@@ -131,7 +132,7 @@
 
     <div id="ticket-container">
         <div id="capture-area">
-            <div id="ticket-body" class="ticket" style="--m-color: #ffffff; --m-dark: #444;">
+            <div id="ticket-body" class="ticket" style="--m-bg: #ffffff; --m-color: #444;">
                 <div id="member-photo" class="member-img"></div>
                 <div id="overlay" class="fade-overlay"></div>
                 
@@ -158,18 +159,18 @@
 
         <div class="btn-group">
             <button class="btn" onclick="downloadImage()">Download PNG 📸</button>
-            <button class="btn" onclick="location.reload()" style="background: transparent; color: #ff8fab; border: 2px solid #ffb3c1; margin-top: 15px;">Try Again</button>
+            <p style="color: #ffb3c1; font-size: 12px; margin-top: 15px; font-weight: 600;">Welcome to Asterum, PLLI! ✨</p>
         </div>
     </div>
 
     <script>
         const gachaPool = [
-            { name: "Yejun", color: "#96CCFF", dark: "#2196F3", img: "https://lh3.googleusercontent.com/u/0/d/1f_5pCcNu6yWJIZoanqRMGBoVPJY33Cke" },
-            { name: "Noah", color: "#DFABFF", dark: "#9C27B0", img: "https://lh3.googleusercontent.com/u/0/d/136FYbU-u4U0Cw8AJQKYUfzpzNQrMDKhW" },
-            { name: "Bamby", color: "#FFB8D3", dark: "#E91E63", img: "https://lh3.googleusercontent.com/u/0/d/1X9VM3HhF8cYvU6A6k0jXGEEaK6JpGZQ7" },
-            { name: "Eunho", color: "#FFBABA", dark: "#F44336", img: "https://lh3.googleusercontent.com/u/0/d/1IcBszLi_zV2Hrw2BxxaGqFn4rjJBulGa" },
-            { name: "Hamin", color: "#ABFFBD", dark: "#4CAF50", img: "https://lh3.googleusercontent.com/u/0/d/1K21sm_dz9BgkXesEJEuPZn8MyQ0Tjr9K" },
-            { name: "PLAVE (Group)", color: "#ffffff", dark: "#444444", img: "https://lh3.googleusercontent.com/u/0/d/1pVg2CfjS-7elfpIfvyCT_oV_QaYPZDy9" }
+            { name: "Yejun", bg: "#e1f5fe", color: "#2196F3", img: "https://lh3.googleusercontent.com/u/0/d/1f_5pCcNu6yWJIZoanqRMGBoVPJY33Cke" },
+            { name: "Noah", bg: "#f3e5f5", color: "#9C27B0", img: "https://lh3.googleusercontent.com/u/0/d/136FYbU-u4U0Cw8AJQKYUfzpzNQrMDKhW" },
+            { name: "Bamby", bg: "#fce4ec", color: "#E91E63", img: "https://lh3.googleusercontent.com/u/0/d/1X9VM3HhF8cYvU6A6k0jXGEEaK6JpGZQ7" },
+            { name: "Eunho", bg: "#ffebee", color: "#F44336", img: "https://lh3.googleusercontent.com/u/0/d/1IcBszLi_zV2Hrw2BxxaGqFn4rjJBulGa" },
+            { name: "Hamin", bg: "#f1f8e9", color: "#4CAF50", img: "https://lh3.googleusercontent.com/u/0/d/1K21sm_dz9BgkXesEJEuPZn8MyQ0Tjr9K" },
+            { name: "PLAVE (Group)", bg: "#ffffff", color: "#444444", img: "https://lh3.googleusercontent.com/u/0/d/1pVg2CfjS-7elfpIfvyCT_oV_QaYPZDy9" }
         ];
 
         function pullGacha() {
@@ -182,8 +183,8 @@
             const photo = document.getElementById('member-photo');
             const tag = document.getElementById('member-tag');
             
+            ticket.style.setProperty('--m-bg', result.bg);
             ticket.style.setProperty('--m-color', result.color);
-            ticket.style.setProperty('--m-dark', result.dark);
             photo.style.backgroundImage = `url('${result.img}')`;
             
             if (result.name === "PLAVE (Group)") {
