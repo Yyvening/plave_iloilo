@@ -7,129 +7,144 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
-    :root {
-      --bg: #f5f7ff;
-      --card: rgba(255,255,255,0.75);
-      --text: #1f2937;
-      --muted: #6b7280;
-      --primary: #6d7cff;
-      --primary-soft: rgba(109,124,255,0.15);
-      --border: rgba(0,0,0,0.06);
-    }
-
-    * {
-      box-sizing: border-box;
-      font-family: 'Inter', sans-serif;
-    }
-
     body {
       margin: 0;
-      padding: 40px 16px;
-      background: radial-gradient(circle at top, #eef1ff, var(--bg));
-      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      background: #f5f7ff;
+      padding: 30px;
+      color: #1f2937;
     }
 
     .card {
-      max-width: 640px;
+      max-width: 650px;
       margin: auto;
-      background: var(--card);
-      backdrop-filter: blur(12px);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 28px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+      background: white;
+      padding: 24px;
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     }
 
     h1 {
-      font-size: 22px;
-      margin-bottom: 6px;
-      font-weight: 600;
+      font-size: 20px;
+      margin-bottom: 5px;
     }
 
-    .subtitle {
-      font-size: 13px;
-      color: var(--muted);
-      margin-bottom: 24px;
+    .desc {
+      font-size: 12px;
+      color: #6b7280;
+      margin-bottom: 15px;
     }
 
     label {
       font-size: 13px;
       font-weight: 500;
+      margin-top: 15px;
       display: block;
-      margin-top: 18px;
-      margin-bottom: 6px;
-    }
-
-    .desc {
-      font-size: 12px;
-      color: var(--muted);
-      margin-bottom: 8px;
     }
 
     input, select {
       width: 100%;
-      padding: 11px 12px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      background: white;
-      outline: none;
-      transition: 0.2s;
-    }
-
-    input:focus, select:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 4px var(--primary-soft);
+      padding: 10px;
+      margin-top: 6px;
+      border-radius: 10px;
+      border: 1px solid #e5e7eb;
     }
 
     .row {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
-      gap: 8px;
-      margin-bottom: 10px;
+      gap: 6px;
+      margin-top: 8px;
     }
 
     button {
       width: 100%;
+      margin-top: 15px;
       padding: 12px;
-      border-radius: 14px;
       border: none;
+      border-radius: 12px;
       cursor: pointer;
-      font-weight: 500;
-      transition: 0.2s;
     }
 
     .primary {
-      background: var(--primary);
+      background: #6d7cff;
       color: white;
-      margin-top: 20px;
-      box-shadow: 0 10px 20px rgba(109,124,255,0.25);
-    }
-
-    .primary:hover {
-      transform: translateY(-1px);
     }
 
     .ghost {
       background: transparent;
-      border: 1px dashed var(--primary);
-      color: var(--primary);
-      margin-top: 10px;
+      border: 1px dashed #6d7cff;
+      color: #6d7cff;
     }
 
-    .section {
-      margin-top: 10px;
+    .step {
+      display: none;
     }
 
-    .divider {
-      height: 1px;
-      background: var(--border);
-      margin: 22px 0;
+    .active {
+      display: block;
     }
 
-    @media (max-width: 600px) {
-      .row {
-        grid-template-columns: 1fr;
-      }
+    /* Progress */
+    .progress {
+      margin: 10px 0 20px;
+    }
+
+    .progress-text {
+      font-size: 12px;
+      color: #6b7280;
+      margin-bottom: 6px;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 6px;
+      background: #e5e7eb;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 33%;
+      background: #6d7cff;
+      transition: 0.3s ease;
+    }
+
+    /* Checkbox pills */
+    .checkbox-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid #e5e7eb;
+      font-size: 13px;
+      cursor: pointer;
+      background: white;
+    }
+
+    .pill input {
+      display: none;
+    }
+
+    .pill:has(input:checked) {
+      background: #6d7cff;
+      color: white;
+      border-color: #6d7cff;
+    }
+
+    #thankyou {
+      display: none;
+      text-align: center;
+      padding: 60px 20px;
     }
   </style>
 </head>
@@ -138,46 +153,96 @@
 
 <div class="card">
 
-  <h1>PLAVE Iloilo Survey 💙</h1>
-  <div class="subtitle">Help us plan soft, meaningful fan events for PLLIs in Iloilo</div>
+  <h1>PLAVE Iloilo Survey 💙💜🩷❤️🖤</h1>
+  <div class="desc">Help us plan better fan events for PLLIs in Iloilo</div>
 
-  <label>Name</label>
-  <div class="desc">First Name + Last Name's Initial (e.g. Hamin Y.)</div>
-  <input id="name" placeholder="Your name" />
-
-  <label>Location</label>
-  <div class="desc">Helps us understand travel needs for Iloilo City events</div>
-  <select id="location">
-    <option>Iloilo City</option>
-    <option>Iloilo Province</option>
-    <option>Outside Iloilo (can travel)</option>
-    <option>Outside Iloilo (cannot attend)</option>
-  </select>
-
-  <div class="divider"></div>
-
-  <label>Availability</label>
-  <div class="desc">We usually plan events on weekends (Saturday–Sunday)</div>
-
-  <div id="slots">
-    <div class="row">
-      <select class="day">
-        <option>Saturday</option>
-        <option>Sunday</option>
-      </select>
-      <input type="time" class="start">
-      <input type="time" class="end">
+  <!-- PROGRESS -->
+  <div class="progress">
+    <div class="progress-text" id="progressText">Step 1 of 3</div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
     </div>
   </div>
 
-  <button class="ghost" onclick="addSlot()">+ Add another time slot</button>
+  <!-- STEP 1 -->
+  <div id="step1" class="step active">
 
-  <button class="primary" onclick="submitForm()">Submit</button>
+    <label>Name</label>
+    <input id="name" placeholder="Hamin Y." />
 
+    <label>Location</label>
+    <select id="location">
+      <option>Iloilo City</option>
+      <option>Iloilo Province</option>
+      <option>Outside Iloilo (can travel)</option>
+    </select>
+
+    <label>Events you're interested in</label>
+    <div class="checkbox-group">
+      <label class="pill">
+        <input type="checkbox" value="Birthday event"> Birthday
+      </label>
+      <label class="pill">
+        <input type="checkbox" value="Anniversary"> Anniversary
+      </label>
+      <label class="pill">
+        <input type="checkbox" value="Watch party"> Watch party
+      </label>
+      <label class="pill">
+        <input type="checkbox" value="Fan meet"> Fan meet
+      </label>
+    </div>
+
+    <button class="primary" onclick="nextStep(2)">Next</button>
+  </div>
+
+  <!-- STEP 2 -->
+  <div id="step2" class="step">
+
+    <label>Availability</label>
+    <div class="desc">Weekends only (Saturday–Sunday)</div>
+
+    <div id="slots">
+      <div class="row">
+        <select class="day">
+          <option>Saturday</option>
+          <option>Sunday</option>
+        </select>
+        <input type="time" class="start">
+        <input type="time" class="end">
+      </div>
+    </div>
+
+    <button class="ghost" onclick="addSlot()">+ Add another time</button>
+
+    <button class="primary" onclick="nextStep(3)">Next</button>
+  </div>
+
+  <!-- STEP 3 -->
+  <div id="step3" class="step">
+    <div class="desc">Final step</div>
+
+    <button class="primary" onclick="submitForm()">Submit</button>
+  </div>
+
+</div>
+
+<!-- THANK YOU -->
+<div id="thankyou">
+  <h1>Thank you 💙</h1>
+  <p>Your response has been recorded, PLLI.</p>
 </div>
 
 <script>
 const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx6AH1iXNzY7IcAlA75hRL5rJ7hKFWxi5XjayFex1ZJ8EPPYkHxqNYueEUD-Z7-unQcOQ/exec";
+
+function nextStep(step) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById('step' + step).classList.add('active');
+
+  document.getElementById("progressText").innerText = `Step ${step} of 3`;
+  document.getElementById("progressFill").style.width = (step * 33) + "%";
+}
 
 function addSlot() {
   const container = document.getElementById("slots");
@@ -212,17 +277,24 @@ function submitForm() {
     }
   });
 
+  const event_interest = Array.from(
+    document.querySelectorAll(".checkbox-group input:checked")
+  ).map(cb => cb.value);
+
   const data = {
     name: document.getElementById("name").value,
     location: document.getElementById("location").value,
+    event_interest: event_interest,
     availability: availability.join(", ")
   };
 
   fetch(WEB_APP_URL, {
     method: "POST",
     body: JSON.stringify(data)
-  }).then(() => {
-    alert("Submitted 💙");
+  })
+  .then(() => {
+    document.querySelector(".card").style.display = "none";
+    document.getElementById("thankyou").style.display = "block";
   });
 }
 </script>
