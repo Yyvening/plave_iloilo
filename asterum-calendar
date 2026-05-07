@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Asterum Schedule | PLAVE Iloilo</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #faf7ff;
+    --surface: rgba(255,255,255,0.75);
+    --border: rgba(180,160,220,0.2);
+    --text: #1e1530;
+    --theme-purple: #a87fe8;
+    --theme-pink: #e87bb5;
+  }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--bg);
+    margin: 0; padding: 40px 20px;
+    display: flex; flex-direction: column; align-items: center;
+  }
+
+  .bg-orbs { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+  .orb { position: absolute; border-radius: 50%; filter: blur(90px); width: 400px; height: 400px; opacity: 0.4; }
+  .orb-1 { background: #ddd0fa; top: -10%; left: -10%; }
+  .orb-2 { background: #fbd5e8; bottom: -5%; right: -5%; }
+
+  header { text-align: center; margin-bottom: 30px; }
+  header h1 { font-family: 'Playfair Display', serif; font-size: 38px; margin: 0; }
+  header p { color: rgba(30,21,48,0.5); font-size: 14px; margin-top: 5px; }
+
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    width: min(600px, 100%);
+    background: var(--surface);
+    padding: 15px;
+    border-radius: 28px;
+    border: 1.5px solid var(--border);
+    backdrop-filter: blur(16px);
+  }
+
+  .day-label { font-size: 10px; font-weight: 800; color: var(--theme-purple); text-align: center; padding-bottom: 10px; }
+
+  .date-cell, .flip-card { aspect-ratio: 1/1; position: relative; border-radius: 12px; }
+  .date-cell { background: rgba(255,255,255,0.4); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 14px; color: var(--text); }
+  .date-num { position: absolute; top: 6px; left: 8px; font-size: 10px; font-weight: bold; z-index: 10; }
+
+  .flip-card { perspective: 1000px; cursor: pointer; }
+  .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; }
+  .flip-card:hover .flip-card-inner { transform: rotateY(180deg); }
+  
+  .flip-front, .flip-back { 
+    position: absolute; width: 100%; height: 100%; 
+    backface-visibility: hidden; 
+    -webkit-backface-visibility: hidden; 
+    border-radius: 12px; overflow: hidden; 
+  }
+  
+  .flip-front { background: white; border: 1px solid var(--border); }
+  .flip-front img { width: 100%; height: 100%; object-fit: cover; }
+  
+  .flip-back { 
+    background: var(--theme-purple); color: white; transform: rotateY(180deg); 
+    display: flex; flex-direction: column; align-items: center; justify-content: center; 
+    padding: 8px; text-align: center; box-sizing: border-box;
+  }
+  .flip-back strong { font-size: 9px; line-height: 1.1; margin-bottom: 4px; }
+  .flip-back p { font-size: 7px; margin: 0; opacity: 0.9; }
+
+  @media (max-width: 480px) {
+    .calendar-grid { gap: 4px; padding: 10px; }
+    .flip-back strong { font-size: 7px; }
+    .flip-back p { display: none; } /* Hide time/loc on tiny mobile screens to avoid overlap */
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-orbs">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+</div>
+
+<header>
+  <h1 id="month-display">Asterum <em>Schedule</em></h1>
+  <p id="year-display">Loading cosmic data...</p>
+</header>
+
+<div class="calendar-grid" id="calendar">
+  <div class="day-label">S</div><div class="day-label">M</div><div class="day-label">T</div>
+  <div class="day-label">W</div><div class="day-label">T</div><div class="day-label">F</div>
+  <div class="day-label">S</div>
+  <!-- Days will be injected here -->
+</div>
+
+<script>
+  // PASTE YOUR PUBLISHED CSV LINK HERE
+  const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQWEVmwBm6VJyMNZ-eGxw9vQB_5c65KHytX4yw8CAB7u1zlJv7XBxPrhEx2bZRh6li-PU6nZ5Q197Io/pub?output=csv';
+
+  async function initCalendar() {
+    try {
+      const response = await fetch(sheetUrl);
+      const csvData = await response.text();
+      
+      // Parse CSV handling potential commas inside quotes
+      const rows = csvData.split(/\r?\n/).map(row => 
+        row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(cell => cell.replace(/"/g, '').trim())
+      );
+
+      if (rows.length < 2) return;
+
+      const currentYear = rows[1][0];
+      const currentMonth = parseInt(rows[1][1]);
+      
+      const monthNames = ["January", "February", "March", "April", "May", "June",
+                          "July", "August", "September", "October", "November", "December"];
+      
+      document.getElementById('month-display').innerHTML = `${monthNames[currentMonth-1]} <em>Schedule</em>`;
+      document.getElementById('year-display').innerText = `${currentYear} • PLLI Iloilo`;
+
+      const events = {};
+      rows.slice(1).forEach(row => {
+        const [y, m, d, title, time, loc, img] = row;
+        if(d) events[parseInt(d)] = { title, time, loc, img };
+      });
+
+      const calendarGrid = document.getElementById('calendar');
+      const firstDay = new Date(currentYear, currentMonth - 1, 1).getDay();
+      const daysInMonth = new Date(currentYear, currentMonth, 0).getDate();
+
+      for (let x = 0; x < firstDay; x++) {
+        calendarGrid.innerHTML += `<div class="date-cell" style="opacity:0"></div>`;
+      }
+
+      for (let day = 1; day <= daysInMonth; day++) {
+        if (events[day]) {
+          calendarGrid.innerHTML += `
+            <div class="flip-card">
+              <div class="flip-card-inner">
+                <div class="flip-front">
+                  <span class="date-num">${day}</span>
+                  <img src="${events[day].img}" alt="event" onerror="this.src='https://via.placeholder.com/150?text=PLAVE'">
+                </div>
+                <div class="flip-back">
+                  <strong>${events[day].title}</strong>
+                  <p>${events[day].time}</p>
+                  <p>${events[day].loc}</p>
+                </div>
+              </div>
+            </div>`;
+        } else {
+          calendarGrid.innerHTML += `<div class="date-cell"><span class="date-num">${day}</span></div>`;
+        }
+      }
+    } catch (e) {
+      console.error("Error:", e);
+      document.getElementById('year-display').innerText = "Schedule currently unavailable.";
+    }
+  }
+
+  initCalendar();
+</script>
+</body>
+</html>
