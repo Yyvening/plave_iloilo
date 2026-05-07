@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Asterum Timeline | PLAVE Iloilo</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #faf7ff;
+    --surface: #ffffff;
+    --border: rgba(180,160,220,0.2);
+    --text: #1e1530;
+    --theme-purple: #a87fe8;
+    --theme-pink: #e87bb5;
+    --accent: #6c5ce7;
+  }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    margin: 0; padding: 40px 20px;
+    display: flex; flex-direction: column; align-items: center;
+  }
+
+  /* Background Orbs */
+  .bg-orbs { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+  .orb { position: absolute; border-radius: 50%; filter: blur(90px); width: 400px; height: 400px; opacity: 0.3; }
+  .orb-1 { background: #ddd0fa; top: -10%; left: -10%; }
+  .orb-2 { background: #fbd5e8; bottom: -5%; right: -5%; }
+
+  header { text-align: center; margin-bottom: 30px; }
+  header h1 { font-family: 'Playfair Display', serif; font-size: 38px; margin: 0; }
+
+  /* Filtering UI */
+  .controls { width: min(800px, 100%); display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 30px; justify-content: center; }
+  select, .filter-btn {
+    padding: 8px 16px; border-radius: 20px; border: 1.5px solid var(--border);
+    background: white; font-family: inherit; cursor: pointer; font-size: 13px; outline: none;
+  }
+  .filter-btn.active { background: var(--theme-purple); color: white; border-color: var(--theme-purple); }
+
+  /* Timeline List */
+  .timeline { width: min(800px, 100%); display: flex; flex-direction: column; gap: 20px; }
+  .event-card {
+    background: var(--surface); border-radius: 24px; padding: 20px;
+    display: flex; gap: 20px; border: 1px solid var(--border);
+    box-shadow: 0 10px 30px rgba(168,127,232,0.05); transition: transform 0.2s;
+  }
+  .event-card:hover { transform: translateY(-3px); }
+
+  .event-img { width: 120px; height: 120px; border-radius: 16px; object-fit: cover; flex-shrink: 0; }
+  
+  .event-info { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; }
+  .event-header { display: flex; justify-content: space-between; align-items: flex-start; }
+  .category-tag { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--theme-purple); font-weight: 700; margin-bottom: 4px; }
+  .event-title { font-size: 20px; font-weight: 600; margin: 0 0 8px 0; }
+  
+  .details { font-size: 13px; opacity: 0.7; margin-bottom: 8px; line-height: 1.4; }
+  .price { font-weight: 600; color: var(--theme-pink); font-size: 14px; }
+
+  /* Status & Countdown */
+  .status-area { text-align: right; flex-shrink: 0; display: flex; flex-direction: column; align-items: flex-end; }
+  .badge { padding: 4px 12px; border-radius: 10px; font-size: 11px; font-weight: bold; margin-bottom: 8px; }
+  .badge-soon { background: #e3d5ff; color: var(--theme-purple); }
+  .badge-ended { background: #eee; color: #888; }
+  .countdown { font-size: 12px; font-weight: 500; color: var(--accent); }
+
+  @media (max-width: 600px) {
+    .event-card { flex-direction: column; }
+    .event-img { width: 100%; height: 180px; }
+    .event-header { flex-direction: column; }
+    .status-area { align-items: flex-start; margin-top: 15px; text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-orbs">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+</div>
+
+<header>
+  <h1>Asterum <em>Timeline</em></h1>
+</header>
+
+<div class="controls">
+  <select id="timeFilter" onchange="filterEvents()">
+    <option value="upcoming">Upcoming</option>
+    <option value="past">Past Events</option>
+    <option value="all">All Time</option>
+  </select>
+  
+  <select id="catFilter" onchange="filterEvents()">
+    <option value="all">All Categories</option>
+    <option value="Anniversary">Anniversary</option>
+    <option value="Birthday">Birthdays</option>
+    <option value="Online Viewing">Online Viewing</option>
+    <option value="Gathering">Fan Gathering</option>
+  </select>
+</div>
+
+<div class="timeline" id="timelineContainer">
+  <!-- Events loaded here -->
+</div>
+
+<script>
+  const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQWEVmwBm6VJyMNZ-eGxw9vQB_5c65KHytX4yw8CAB7u1zlJv7XBxPrhEx2bZRh6li-PU6nZ5Q197Io/pub?output=csv';
+  let allEvents = [];
+
+  async function loadTimeline() {
+    try {
+      const response = await fetch(sheetUrl);
+      const csv = await response.text();
+      const rows = csv.split(/\r?\n/)
+        .map(row => row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(cell => cell.replace(/"/g, '').trim()))
+        .filter(row => row.length >= 7 && row[0] !== "Year");
+
+      allEvents = rows.map(row => {
+        const [y, m, d, title, time, loc, img, cat, price] = row;
+        return {
+          date: new Date(y, m - 1, d),
+          title, time, loc, img, cat, price: price || 'Free',
+          id: Date.now() + Math.random()
+        };
+      }).sort((a, b) => a.date - b.date);
+
+      filterEvents();
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  function filterEvents() {
+    const timeVal = document.getElementById('timeFilter').value;
+    const catVal = document.getElementById('catFilter').value;
+    const container = document.getElementById('timelineContainer');
+    const now = new Date();
+    now.setHours(0,0,0,0);
+
+    const filtered = allEvents.filter(ev => {
+      const isPast = ev.date < now;
+      const timeMatch = (timeVal === 'all') || (timeVal === 'past' && isPast) || (timeVal === 'upcoming' && !isPast);
+      const catMatch = (catVal === 'all') || (ev.cat === catVal);
+      return timeMatch && catMatch;
+    });
+
+    container.innerHTML = filtered.map(ev => {
+      const diffTime = ev.date - now;
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      const isPast = diffTime < 0;
+
+      let statusBadge = isPast ? '<span class="badge badge-ended">ENDED</span>' : '<span class="badge badge-soon">SOON</span>';
+      let countdownText = "";
+      
+      if (diffDays === 0) countdownText = "Happening Today!";
+      else if (diffDays === 1) countdownText = "Tomorrow!";
+      else if (diffDays > 1) countdownText = `In ${diffDays} days`;
+
+      return `
+        <div class="event-card">
+          <img src="${ev.img}" class="event-img" onerror="this.src='https://via.placeholder.com/150?text=PLAVE'">
+          <div class="event-info">
+            <div class="event-header">
+              <div>
+                <div class="category-tag">${ev.cat || 'Event'}</div>
+                <h2 class="event-title">${ev.title}</h2>
+              </div>
+              <div class="status-area">
+                ${statusBadge}
+                <div class="countdown">${isPast ? '' : countdownText}</div>
+              </div>
+            </div>
+            <div class="details">
+              📅 ${ev.date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}<br>
+              ⏰ ${ev.time} | 📍 ${ev.loc}
+            </div>
+            <div class="price">${ev.price}</div>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    if(filtered.length === 0) container.innerHTML = '<p style="text-align:center; opacity:0.5;">No cosmic events found for this filter.</p>';
+  }
+
+  loadTimeline();
+</script>
+</body>
+</html>
