@@ -4,104 +4,245 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>PLAVE Iloilo</title>
-
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
+  :root {
+    --bg: #faf7ff;
+    --surface: rgba(255,255,255,0.75);
+    --border: rgba(180,160,220,0.2);
+    --text: #1e1530;
+    --muted: rgba(30,21,48,0.5);
+    --spotify: #1DB954;
+    --theme-purple: #a87fe8;
+    --theme-pink: #e87bb5;
+    --theme-blue: #6aaef5;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
   body {
-    margin: 0;
-    font-family: 'DM Sans', sans-serif;
-    background: linear-gradient(135deg, #f7f6fc, #eef2ff);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    font-family: 'Outfit', sans-serif;
+    background: var(--bg);
+    color: var(--text);
     min-height: 100vh;
-    color: #1e1b2e;
-  }
-
-  .container {
-    text-align: center;
-    max-width: 520px;
-    width: 90%;
-  }
-
-  h1 {
-    font-size: 34px;
-    margin-bottom: 10px;
-    background: linear-gradient(135deg, #5b8dee, #9f7aea, #f472b6);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  p {
-    color: #6b6b7a;
-    font-size: 14px;
-    margin-bottom: 30px;
-  }
-
-  .card-grid {
-    display: grid;
-    gap: 14px;
-  }
-
-  .card {
-    background: white;
-    padding: 18px 20px;
-    border-radius: 16px;
-    text-decoration: none;
-    color: #1e1b2e;
-    font-weight: 600;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-    box-shadow: 0 10px 25px rgba(90,60,120,0.08);
-    transition: all 0.2s ease;
+    padding: 40px 0;
   }
 
-  .card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 14px 30px rgba(90,60,120,0.15);
+  /* ── Background ── */
+  .bg-orbs { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+  .orb { position: absolute; border-radius: 50%; filter: blur(90px); animation: drift 14s ease-in-out infinite alternate; }
+  .orb-1 { width: 500px; height: 500px; background: #ddd0fa; opacity: 0.5; top: -10%; left: -10%; }
+  .orb-2 { width: 400px; height: 400px; background: #fbd5e8; opacity: 0.4; bottom: -5%; right: -5%; animation-delay: -5s; }
+  .orb-3 { width: 300px; height: 300px; background: #c2dffb; opacity: 0.4; top: 40%; left: 50%; animation-delay: -9s; }
+
+  @keyframes drift {
+    from { transform: translate(0,0) scale(1); }
+    to { transform: translate(30px, 20px) scale(1.1); }
   }
 
-  .tag {
-    font-size: 11px;
-    padding: 4px 10px;
-    border-radius: 999px;
-    background: #eef2ff;
-    color: #5b8dee;
-    font-weight: 500;
-  }
+  .wrapper { position: relative; z-index: 1; width: min(520px, 92vw); text-align: center; }
 
-  .footer {
-    margin-top: 28px;
-    font-size: 12px;
-    color: #9a9aa8;
+  /* ── Header ── */
+  .header-section { margin-bottom: 32px; animation: fadeUp 0.6s ease both; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: white; border: 1px solid rgba(180,150,220,0.3);
+    border-radius: 999px; padding: 6px 16px;
+    font-size: 10px; font-weight: 700; color: #5a3e80;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    margin-bottom: 16px; box-shadow: 0 4px 15px rgba(180,150,220,0.1);
   }
+  .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--theme-purple); }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(52px, 13vw, 76px);
+    line-height: 0.95; letter-spacing: -0.03em;
+    background: linear-gradient(135deg, var(--theme-purple), var(--theme-pink), var(--theme-blue));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    margin-bottom: 12px;
+  }
+  .hero h1 em { font-style: italic; font-weight: 400; }
+  .hero-subtitle { font-size: 14px; color: var(--muted); letter-spacing: 0.02em; font-weight: 400; }
+
+  /* ── Member Tags ── */
+  .tag-row {
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 8px; margin: 24px auto 40px; max-width: 440px;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+  .pill {
+    font-size: 11px; font-weight: 600; padding: 7px 15px;
+    border-radius: 999px; border: 1px solid transparent;
+    transition: 0.2s; cursor: default;
+  }
+  .pill:hover { transform: translateY(-2px); box-shadow: 0 5px 12px rgba(168, 127, 232, 0.15); }
+
+  .pill-plave  { background: #ede9fe; color: #6d28d9; border-color: #ddd6fe; }
+  .pill-iloilo { background: #e0f2ff; color: #0369a1; border-color: #bae6fd; }
+  .pill-plli   { background: #fdf2f8; color: #be185d; border-color: #fce7f3; }
+  .pill-yejun  { background: #e0f2ff; color: #0077cc; border-color: #b3d9ff; } 
+  .pill-noah   { background: #f3e8ff; color: #6a0dad; border-color: #d8b4fe; }
+  .pill-bamby  { background: #ffe4f1; color: #d01c8b; border-color: #f9a8d4; } 
+  .pill-eunho  { background: #fee2e2; color: #dc2626; border-color: #fca5a5; } 
+  .pill-hamin  { background: #e8fff0; color: #10b981; border-color: #a7f3d0; }
+
+  /* ── Navigation Cards ── */
+  .divider { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; animation: fadeUp 0.6s 0.3s ease both; }
+  .divider-line { flex: 1; height: 1px; background: rgba(180,150,220,0.15); }
+  .divider-label { font-size: 10px; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; }
+
+  .card-grid { display: grid; gap: 12px; animation: fadeUp 0.6s 0.4s ease both; }
+  .card {
+    background: var(--surface); border: 1.5px solid var(--border);
+    padding: 18px 22px; border-radius: 22px; text-decoration: none; color: var(--text);
+    display: flex; align-items: center; justify-content: space-between;
+    backdrop-filter: blur(16px); transition: all 0.3s ease;
+  }
+  .card:hover { transform: translateY(-4px); border-color: var(--theme-purple); background: white; box-shadow: 0 10px 25px rgba(160,120,220,0.1); }
+  
+  .card-left { display: flex; align-items: center; gap: 16px; text-align: left; }
+  .card-icon { width: 44px; height: 44px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 20px; background: rgba(180,140,245,0.1); }
+  .card-title { font-weight: 600; font-size: 15px; margin-bottom: 2px; }
+  .card-desc { font-size: 12px; color: var(--muted); }
+  
+  .card-arrow { font-size: 14px; color: var(--muted); opacity: 0.5; }
+  .card:hover .card-arrow { color: var(--theme-purple); opacity: 1; transform: translateX(3px); transition: 0.2s; }
+
+  /* ── Spotify & Socials ── */
+  .spotify-section { margin-top: 36px; animation: fadeUp 0.6s 0.5s ease both; width: 100%; }
+  .spotify-container { background: var(--surface); border-radius: 28px; padding: 8px; border: 1.5px solid var(--border); backdrop-filter: blur(10px); }
+
+  .social-row { display: flex; justify-content: center; gap: 12px; margin-top: 28px; animation: fadeUp 0.6s 0.6s ease both; }
+  .social-btn { 
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 12px 24px; border-radius: 999px; border: 1px solid var(--border); 
+    background: white; color: var(--text); font-size: 12px; font-weight: 600; 
+    text-decoration: none; transition: 0.2s; 
+  }
+  .social-btn:hover { border-color: var(--theme-purple); transform: translateY(-2px); }
+  .social-btn svg { width: 18px; height: 18px; }
+
+  .footer { margin-top: 40px; font-size: 11px; color: var(--muted); animation: fadeUp 0.6s 0.7s ease both; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 </style>
 </head>
-
 <body>
 
-<div class="container">
-  <h1>PLAVE Iloilo</h1>
-  <p>Choose what you want to access 👇</p>
+<div class="bg-orbs">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+</div>
+
+<div class="wrapper">
+  <header class="header-section">
+    <div class="badge"><span class="badge-dot"></span> Official Fan Club</div>
+    <div class="hero">
+      <h1>PLAVE<br><em>Iloilo</em></h1>
+    </div>
+    <p class="hero-subtitle">Connecting PLLIs to the stars of Asterum.</p>
+  </header>
+
+  <div class="tag-row">
+    <span class="pill pill-plave">PLAVE</span>
+    <span class="pill pill-yejun">Yejun</span>
+    <span class="pill pill-noah">Noah</span>
+    <span class="pill pill-bamby">Bamby</span>
+    <span class="pill pill-eunho">Eunho</span>
+    <span class="pill pill-hamin">Hamin</span>
+    <span class="pill pill-plli">PLLI</span>
+    <span class="pill pill-iloilo">Iloilo</span>
+  </div>
+
+  <div class="divider">
+    <div class="divider-line"></div>
+    <span class="divider-label">Navigation</span>
+    <div class="divider-line"></div>
+  </div>
 
   <div class="card-grid">
-
-    <a class="card" href="./eventssurvey.html">
-      Events Interest Survey
-      <span class="tag">Form</span>
+    <!-- Calendar Card -->
+    <a class="card" href="./calendar.html">
+      <div class="card-left">
+        <div class="card-icon">📅</div>
+        <div>
+          <div class="card-title">Asterum Calendar</div>
+          <div class="card-desc">Birthdays, events, and local meetups</div>
+        </div>
+      </div>
+            <div class="card-arrow">→</div>
     </a>
 
+
+    <!-- Registration Card -->
     <a class="card" href="./registration.html">
-      Registration
-      <span class="tag">Sign Up</span>
+      <div class="card-left">
+        <div class="card-icon">✨</div>
+        <div>
+          <div class="card-title">Registrations</div>
+          <div class="card-desc">Sign up for activities & events</div>
+        </div>
+      </div>
+      <div class="card-arrow">→</div>
+    </a>
+    
+    <!-- Surveys Card -->
+    <a class="card" href="./eventssurvey.html">
+      <div class="card-left">
+        <div class="card-icon">📋</div>
+        <div>
+          <div class="card-title">Surveys</div>
+          <div class="card-desc">Help us plan small but meaningful events for PLLIs around Iloilo City</div>
+        </div>
+      </div>
+      <div class="card-arrow">→</div>
     </a>
 
+    <!-- Market Card -->
+    <a class="card" href="#" style="cursor: default;">
+      <div class="card-left">
+        <div class="card-icon">💎</div>
+        <div>
+          <div class="card-title">PLLI Market</div>
+          <div class="card-desc">PC trading, BNS, group orders & more</div>
+        </div>
+      </div>
+      <div style="font-size: 9px; font-weight: 800; color: var(--theme-purple); text-transform: uppercase; letter-spacing: 0.05em; background: rgba(168, 127, 232, 0.1); padding: 4px 10px; border-radius: 6px; border: 1px solid rgba(168, 127, 232, 0.2);">
+        Soon
+      </div>
+    </a>
+  </div>
+
+  <!-- Spotify Section -->
+  <div class="spotify-section">
+    <div class="spotify-header" style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 12px; font-size: 11px; font-weight: 700; color: var(--spotify); text-transform: uppercase; letter-spacing: 0.1em;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.5 17.333c-.23.334-.664.434-.997.203-2.735-1.674-6.177-2.053-10.232-1.127-.377.086-.755-.15-.841-.527-.086-.377.15-.755.527-.841 4.437-1.016 8.232-.584 11.31 1.296.333.203.433.637.203.997z"/></svg>
+      Now Playing
+    </div>
+    <div class="spotify-container">
+      <iframe style="border-radius:20px" src="https://open.spotify.com/embed/album/1vkQIKe7n01Jxic7csfA4P?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    </div>
+  </div>
+
+  <!-- Social Media Row -->
+  <div class="social-row">
+    <a class="social-btn" href="https://www.facebook.com/profile.php?id=61568059799884">
+      <svg viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073c0 6.026 4.388 11.022 10.125 11.927v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.235 2.686.235v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.27h3.328l-.532 3.49h-2.796V24C19.612 23.095 24 18.1 24 12.073z"/></svg>
+      Facebook
+    </a>
+    <a class="social-btn" href="https://www.facebook.com/share/g/1CaGbdGGPu/">
+      <svg viewBox="0 0 24 24" fill="#1877F2"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12c0-5.523-4.477-10-10-10z"/></svg>
+      Group
+    </a>
   </div>
 
   <div class="footer">
-    made with 💜 for PLLIs in Iloilo
+    made with 🖤 for Iloilo PLLIs
   </div>
 </div>
 
